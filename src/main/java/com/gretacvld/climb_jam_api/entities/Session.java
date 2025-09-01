@@ -25,8 +25,4 @@ public class Session {
     private Crag crag;
 
     private LocalDate date;
-/*
-    @OneToMany(mappedBy = "session", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Ascent> ascents;
-*/
 }
