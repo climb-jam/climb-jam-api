@@ -45,8 +45,4 @@ public class Crag {
 
     private String photoUrl;
     private String thumbnailUrl;
-/*
-    @OneToMany(mappedBy = "crag", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Route> routes;
-*/
 }
