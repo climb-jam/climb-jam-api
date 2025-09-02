@@ -16,6 +16,8 @@ import java.util.Set;
 @Data
 public class CragDTO {
 
+    private Long id;
+
     @NotBlank(message = "Le nom est obligatoire.")
     private String name;
 
@@ -33,6 +35,8 @@ public class CragDTO {
     private BigDecimal longitude;
     private Integer altitude;
     private String rockType;
+    private String minGrade;
+    private String maxGrade;
     private String exposure;
 
     private Set<Season> favorableSeasons;
