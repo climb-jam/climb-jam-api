@@ -5,7 +5,6 @@ import com.gretacvld.climb_jam_api.enums.Season;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -25,8 +24,8 @@ public class Crag {
     @Column(length = 5, nullable = false)
     private String postalCode;
 
-    private BigDecimal latitude;
-    private BigDecimal longitude;
+    private Double lat;
+    private Double lon;
     private Integer altitude;
     private String rockType;
     private String minGrade;
