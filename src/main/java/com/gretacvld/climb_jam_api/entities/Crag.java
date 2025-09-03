@@ -5,7 +5,6 @@ import com.gretacvld.climb_jam_api.enums.Season;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
