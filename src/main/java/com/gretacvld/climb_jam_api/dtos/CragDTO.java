@@ -31,8 +31,8 @@ public class CragDTO {
     )
     private String postalCode;
 
-    private BigDecimal latitude;
-    private BigDecimal longitude;
+    private Double lat;
+    private Double lon;
     private Integer altitude;
     private String rockType;
     private String minGrade;

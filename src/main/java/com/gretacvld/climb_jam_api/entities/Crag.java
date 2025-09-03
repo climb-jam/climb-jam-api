@@ -25,8 +25,8 @@ public class Crag {
     @Column(length = 5, nullable = false)
     private String postalCode;
 
-    private BigDecimal latitude;
-    private BigDecimal longitude;
+    private Double lat;
+    private Double lon;
     private Integer altitude;
     private String rockType;
     private String minGrade;

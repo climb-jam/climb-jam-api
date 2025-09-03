@@ -1,5 +1,5 @@
 -- CRAGS --
-INSERT INTO crag (name, city, postal_code, latitude, longitude, altitude, rock_type, min_grade, max_grade, exposure, photo_url, thumbnail_url) VALUES
+INSERT INTO crag (name, city, postal_code, lat, lon, altitude, rock_type, min_grade, max_grade, exposure, photo_url, thumbnail_url) VALUES
 ('Viaduc des Fauvettes', 'Bures-sur-Yvette', '91440', 48.678913, 2.152492, 114, 'grès', '3c', '7c', 'protégé', NULL, NULL),
 ('Rocher du Corbeau', 'Rimbach-près-Masevaux', '68290', 47.795171, 6.992000, 1002, 'granite', '4a', '6c', 'exposé', NULL, NULL),
 ('Les Gaillands', 'Chamonix-Mont-Blanc', '74400', 45.915253, 6.846298, 1037, 'gneiss', '2c', '7a', 'variable', NULL, NULL),
