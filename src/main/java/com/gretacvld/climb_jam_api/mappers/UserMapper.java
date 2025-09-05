@@ -10,18 +10,19 @@ import org.springframework.stereotype.Component;
 @Component // Needs to be a Spring bean with @Component cause it needs injection(PasswordEncoder)
 public class UserMapper {
 
-    // Entity ==> DTO
+    // User Entity ==> UserResponseDTO
     public UserResponseDTO toDTO(User user) {
         if (user == null) return null;
         return new UserResponseDTO(
                 user.getId(),
                 user.getEmail(),
                 user.getUsername(),
+                user.getRole(),
                 user.getCreatedAt()
         );
     }
 
-    // DTO ==> Entity User
+    // RegisterRequestDTO ==> User Entity
     public User toEntity(RegisterRequestDTO dto, PasswordEncoder encoder) {
         User user = new User();
         user.setEmail(dto.getEmail());
