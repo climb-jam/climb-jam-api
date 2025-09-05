@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class LoginRequestDTO {
+public class AdminRegisterDTO {
 
     @NotBlank(message = "L'e-mail ne peut pas être vide.")
     @Pattern(
@@ -24,4 +24,7 @@ public class LoginRequestDTO {
             message = "Le mot de passe doit contenir au moins 8 caractères, une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial."
     )
     private String password;
+
+    @NotBlank(message = "Le nom d'utilisateur ne peut pas être vide.")
+    private String username;
 }

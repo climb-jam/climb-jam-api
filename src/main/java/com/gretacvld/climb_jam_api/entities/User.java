@@ -22,7 +22,7 @@ public class User {
     private String username;
 
     @Enumerated(EnumType.STRING)
-    private Role role = Role.USER;
+    private Role role;
 
     private Instant createdAt = Instant.now();
 
