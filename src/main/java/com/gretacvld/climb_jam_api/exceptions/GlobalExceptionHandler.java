@@ -7,15 +7,32 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(UsernameNotFoundException.class)
-    public ResponseEntity<String> handleUsernameNotFound(UsernameNotFoundException e) {
+    @ExceptionHandler(EmailAlreadyUsedException.class)
+    public ResponseEntity<String> handleEmailAlreadyUsed(EmailAlreadyUsedException e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    }
+
+    @ExceptionHandler(UsernameAlreadyUsedException.class)
+    public ResponseEntity<String> handleUsernameAlreadyUsed(UsernameAlreadyUsedException e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<String> handleUserNotFound(UserNotFoundException e) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
     }
 
+    @ExceptionHandler(InvalidLoginInfoException.class)
+    public ResponseEntity<String> handleInvalidLogin(InvalidLoginInfoException e) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
+    }
+
+    // JWT Exceptions
     @ExceptionHandler(SecurityException.class)
     public ResponseEntity<String> handleInvalidSignature(SecurityException e) {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
@@ -39,5 +56,16 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<String> handleEmptyStringClaims(IllegalArgumentException e) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    }
+
+    // Generic Exceptions
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<String> handleGenericExceptions(Exception e) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erreur serveur : " + e.getMessage());
+    }
+
+    @ExceptionHandler(NoHandlerFoundException.class)
+    public ResponseEntity<String> handleNotFoundError(NoHandlerFoundException e) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Erreur 404 : Pas de endpoint disponible" + e.getMessage());
     }
 }

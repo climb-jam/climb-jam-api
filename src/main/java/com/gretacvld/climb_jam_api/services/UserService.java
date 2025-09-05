@@ -5,7 +5,7 @@ import com.gretacvld.climb_jam_api.entities.User;
 import com.gretacvld.climb_jam_api.exceptions.EmailAlreadyUsedException;
 import com.gretacvld.climb_jam_api.exceptions.InvalidLoginInfoException;
 import com.gretacvld.climb_jam_api.exceptions.UsernameAlreadyUsedException;
-import com.gretacvld.climb_jam_api.exceptions.UsernameNotFoundException;
+import com.gretacvld.climb_jam_api.exceptions.UserNotFoundException;
 import com.gretacvld.climb_jam_api.mappers.UserMapper;
 import com.gretacvld.climb_jam_api.repositories.UserRepository;
 import com.gretacvld.climb_jam_api.security.JwtUtil;
@@ -61,7 +61,7 @@ public class UserService {
 
         // Retrieves user from DB
         User user = userRepository.findByEmail(dto.getEmail())
-                .orElseThrow(() -> new UsernameNotFoundException("Utilisateur introuvable"));
+                .orElseThrow(() -> new UserNotFoundException("Utilisateur introuvable"));
         // Checks login info
         if (user == null || !encoder.matches(dto.getPassword(), user.getPassword())) {
             throw new InvalidLoginInfoException("Identifiants incorrects");
