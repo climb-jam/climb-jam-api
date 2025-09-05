@@ -1,7 +1,7 @@
 package com.gretacvld.climb_jam_api.dtos;
 
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,9 +12,16 @@ import lombok.NoArgsConstructor;
 public class LoginRequestDTO {
 
     @NotBlank(message = "L'e-mail ne peut pas être vide.")
-    @Email(message = "Le format de l'e-mail est invalide.")
+    @Pattern(
+            regexp = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$",
+            message = "Le format de l'e-mail est invalide."
+    )
     private String email;
 
     @NotBlank(message = "Le mot de passe ne peut pas être vide.")
+    @Pattern(
+            regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@$!%*?&#])[A-Za-z\\d@$!%*?&#]{8,}$",
+            message = "Le mot de passe doit contenir au moins 8 caractères, une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial."
+    )
     private String password;
 }

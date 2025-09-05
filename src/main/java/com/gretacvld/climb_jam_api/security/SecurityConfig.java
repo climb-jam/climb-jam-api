@@ -39,10 +39,15 @@ public class SecurityConfig {
                 )
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
-                                .requestMatchers("/auth/**", "/test/all").permitAll()
-                                .requestMatchers("/user/**").hasRole("USER")
+                                .requestMatchers("/auth/**").permitAll()
+                                .requestMatchers("/user/**").hasAnyRole("USER","ADMIN")
                                 .requestMatchers("/admin/**").hasRole("ADMIN")
+                                .requestMatchers(   "/swagger-ui/**",
+                                        "/v3/api-docs/**",
+                                        "/swagger-resources/**",
+                                        "/webjars/**").permitAll()
                                 .anyRequest().authenticated()
+
                 );
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
