@@ -10,7 +10,7 @@ import java.time.Instant;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class UserResponseDTO {
+public class UserDTO {
 
     private Long id;
     private String email;

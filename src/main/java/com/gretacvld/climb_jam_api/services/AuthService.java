@@ -17,7 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserService {
+public class AuthService {
 
     @Autowired
     private UserRepository userRepository;
@@ -30,7 +30,7 @@ public class UserService {
     @Autowired
     private UserMapper userMapper;
 
-    public UserResponseDTO register(RegisterRequestDTO dto) {
+    public AuthResponseDTO register(RegisterRequestDTO dto) {
 
         // Checks if email already exists
         if (userRepository.existsByEmail(dto.getEmail())) {
@@ -46,7 +46,10 @@ public class UserService {
         User user = userMapper.toEntity(dto, encoder);
         // Save in DB
         User savedUser = userRepository.save(user);
-        return userMapper.toDTO(savedUser);
+        // Generates JWT
+        String token = jwtUtil.generateToken(savedUser.getEmail());
+
+        return new AuthResponseDTO(userMapper.toDTO(savedUser), token);
     }
 
     public AuthResponseDTO login(LoginRequestDTO dto) {
@@ -63,7 +66,7 @@ public class UserService {
         User user = userRepository.findByEmail(dto.getEmail())
                 .orElseThrow(() -> new UsernameNotFoundException("Utilisateur introuvable"));
         // Checks login info
-        if (user == null || !encoder.matches(dto.getPassword(), user.getPassword())) {
+        if (!encoder.matches(dto.getPassword(), user.getPassword())) {
             throw new InvalidLoginInfoException("Identifiants incorrects");
 
         }
