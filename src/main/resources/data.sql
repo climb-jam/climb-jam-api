@@ -94,3 +94,17 @@ INSERT INTO crag_orientations (crag_id, orientations) VALUES
 (28, 'NORD'), (28, 'EST'), (28, 'SUD'),
 (29, 'NORD'), (29, 'EST'), (29, 'SUD'),
 (30, 'SUD');
+
+-- ADMIN + 10 USERS --
+INSERT INTO user (id, email, password, username, role) VALUES
+(1, 'climbjam@example.com', '$2a$12$R.QBr1uwWlhNU1LpSL7c3OBSPJw95gL/eAuZGTsTMoCCherO0WC5y', 'ClimbJAM', 'ADMIN'),
+(2, 'alice@example.com', '$2a$12$R.QBr1uwWlhNU1LpSL7c3OBSPJw95gL/eAuZGTsTMoCCherO0WC5y', 'alice', 'USER'),
+(3, 'ben@example.com', '$2a$12$R.QBr1uwWlhNU1LpSL7c3OBSPJw95gL/eAuZGTsTMoCCherO0WC5y', 'ben', 'USER'),
+(4, 'chloe@example.com', '$2a$12$R.QBr1uwWlhNU1LpSL7c3OBSPJw95gL/eAuZGTsTMoCCherO0WC5y', 'chloe', 'USER'),
+(5, 'daniel@example.com', '$2a$12$R.QBr1uwWlhNU1LpSL7c3OBSPJw95gL/eAuZGTsTMoCCherO0WC5y', 'daniel', 'USER'),
+(6, 'emma@example.com', '$2a$12$R.QBr1uwWlhNU1LpSL7c3OBSPJw95gL/eAuZGTsTMoCCherO0WC5y', 'emma', 'USER'),
+(7, 'frank@example.com', '$2a$12$R.QBr1uwWlhNU1LpSL7c3OBSPJw95gL/eAuZGTsTMoCCherO0WC5y', 'frank', 'USER'),
+(8, 'grace@example.com', '$2a$12$R.QBr1uwWlhNU1LpSL7c3OBSPJw95gL/eAuZGTsTMoCCherO0WC5y', 'grace', 'USER'),
+(9, 'henri@example.com', '$2a$12$R.QBr1uwWlhNU1LpSL7c3OBSPJw95gL/eAuZGTsTMoCCherO0WC5y', 'henri', 'USER'),
+(10, 'oriane@example.com', '$2a$12$R.QBr1uwWlhNU1LpSL7c3OBSPJw95gL/eAuZGTsTMoCCherO0WC5y', 'oriane', 'USER'),
+(11, 'tristan@example.com', '$2a$12$R.QBr1uwWlhNU1LpSL7c3OBSPJw95gL/eAuZGTsTMoCCherO0WC5y', 'tristan', 'USER');

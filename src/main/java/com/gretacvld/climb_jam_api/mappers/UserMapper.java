@@ -1,7 +1,7 @@
 package com.gretacvld.climb_jam_api.mappers;
 
 import com.gretacvld.climb_jam_api.dtos.RegisterRequestDTO;
-import com.gretacvld.climb_jam_api.dtos.UserResponseDTO;
+import com.gretacvld.climb_jam_api.dtos.UserDTO;
 import com.gretacvld.climb_jam_api.entities.User;
 import com.gretacvld.climb_jam_api.enums.Role;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -10,10 +10,10 @@ import org.springframework.stereotype.Component;
 @Component // Needs to be a Spring bean with @Component cause it needs injection(PasswordEncoder)
 public class UserMapper {
 
-    // User Entity ==> UserResponseDTO
-    public UserResponseDTO toDTO(User user) {
+    // User Entity ==> UserDTO
+    public UserDTO toDTO(User user) {
         if (user == null) return null;
-        return new UserResponseDTO(
+        return new UserDTO(
                 user.getId(),
                 user.getEmail(),
                 user.getUsername(),

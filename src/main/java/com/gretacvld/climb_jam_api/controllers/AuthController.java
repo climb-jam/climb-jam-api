@@ -3,10 +3,10 @@ package com.gretacvld.climb_jam_api.controllers;
 import com.gretacvld.climb_jam_api.dtos.LoginRequestDTO;
 import com.gretacvld.climb_jam_api.dtos.AuthResponseDTO;
 import com.gretacvld.climb_jam_api.dtos.RegisterRequestDTO;
-import com.gretacvld.climb_jam_api.dtos.UserResponseDTO;
-import com.gretacvld.climb_jam_api.services.UserService;
+import com.gretacvld.climb_jam_api.services.AuthService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,11 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
     
     @Autowired
-    private UserService userService;
+    private AuthService userService;
 
     @PostMapping("/register")
-    public ResponseEntity<UserResponseDTO> register(@Valid @RequestBody RegisterRequestDTO dto) {
-        return ResponseEntity.ok(userService.register(dto));
+    public ResponseEntity<AuthResponseDTO> register(@Valid @RequestBody RegisterRequestDTO dto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(userService.register(dto));
     }
 
     @PostMapping("/login")
