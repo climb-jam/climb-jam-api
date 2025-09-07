@@ -15,6 +15,16 @@ public class CragController {
     @Autowired
     private CragService cragService;
 
+    @PostMapping
+    public ResponseEntity<CragDTO> createCrag(@RequestBody CragDTO dto) {
+        return ResponseEntity.ok(cragService.create(dto));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<CragDTO> getCragById(@PathVariable Long id) {
+        return cragService.getCragById(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    }
+
     @GetMapping
     public ResponseEntity<List<CragDTO>> getAllCrags() {
         return ResponseEntity.ok(cragService.getAllCrags());
@@ -33,5 +43,16 @@ public class CragController {
     @GetMapping("/search") // Different ways to call endpoint - ex : /search?city=saf OR /search?postalCode=21 OR /search?city=saf&postalCode=21
     public ResponseEntity<List<CragDTO>> getCragsByCityOrPostalCode(@RequestParam(required = false) String city, @RequestParam(required = false) String postalCode) {
         return ResponseEntity.ok(cragService.getCragsByCityOrPostalCode(city, postalCode));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<CragDTO> updateCrag(@PathVariable Long id, @RequestBody CragDTO dto) {
+        return ResponseEntity.ok(cragService.update(id, dto));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        cragService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }

@@ -59,6 +59,11 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
     }
 
+    @ExceptionHandler(CragNotFoundException.class)
+    public ResponseEntity<String> handleCragNotFound(CragNotFoundException e) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+    }
+
     // JWT Exceptions
     @ExceptionHandler(SecurityException.class)
     public ResponseEntity<String> handleInvalidSignature(SecurityException e) {

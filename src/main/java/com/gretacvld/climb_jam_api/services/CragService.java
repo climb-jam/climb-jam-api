@@ -1,6 +1,8 @@
 package com.gretacvld.climb_jam_api.services;
 
 import com.gretacvld.climb_jam_api.dtos.CragDTO;
+import com.gretacvld.climb_jam_api.entities.Crag;
+import com.gretacvld.climb_jam_api.exceptions.CragNotFoundException;
 import com.gretacvld.climb_jam_api.mappers.CragMapper;
 import com.gretacvld.climb_jam_api.repositories.CragRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,16 @@ public class CragService {
 
     @Autowired
     private CragRepository cragRepository;
+
+    public CragDTO create(CragDTO dto) {
+        Crag crag = CragMapper.toEntity(dto);
+        return CragMapper.toDTO(cragRepository.save(crag));
+    }
+
+    public Optional<CragDTO> getCragById(Long id) {
+        return cragRepository.findById(id)
+                .map(CragMapper::toDTO);
+    }
 
     public List<CragDTO> getAllCrags() {
         return cragRepository.findAll().stream()
@@ -37,5 +49,19 @@ public class CragService {
         return cragRepository.findByCityContainingIgnoreCaseOrPostalCodeContainingIgnoreCase(city, postalCode).stream()
                 .map(CragMapper::toDTO)
                 .collect(Collectors.toList());
+    }
+
+    public CragDTO update(Long id, CragDTO dto) {
+        return cragRepository.findById(id)
+                .map(crag -> {
+                    Crag updated = CragMapper.toEntity(dto);
+                    updated.setId((crag.getId()));
+                    return CragMapper.toDTO(cragRepository.save(updated));
+                })
+                .orElseThrow(() -> new CragNotFoundException("Site d'escalade introuvable avec l'ID " + id));
+    }
+
+    public void delete(Long id) {
+        cragRepository.deleteById(id);
     }
 }
