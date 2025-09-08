@@ -108,3 +108,13 @@ INSERT INTO user (id, email, password, username, role) VALUES
 (9, 'henri@example.com', '$2a$12$R.QBr1uwWlhNU1LpSL7c3OBSPJw95gL/eAuZGTsTMoCCherO0WC5y', 'henri', 'USER'),
 (10, 'oriane@example.com', '$2a$12$R.QBr1uwWlhNU1LpSL7c3OBSPJw95gL/eAuZGTsTMoCCherO0WC5y', 'oriane', 'USER'),
 (11, 'tristan@example.com', '$2a$12$R.QBr1uwWlhNU1LpSL7c3OBSPJw95gL/eAuZGTsTMoCCherO0WC5y', 'tristan', 'USER');
+
+
+-- ROUTES --
+INSERT INTO route (crag_id, name, grade, height, incline_type, anchor_type, bolt_type, bolt_count, sector) VALUES
+('1', 'Abrasive Stone', '7a', 35, 'dalle positive', '2 points chaînés', 'broches', NULL, 'Pilier 4'),
+('1', 'Desmaison', '6c', 30, NULL, '2 points chaînés', 'broches', NULL, 'Pilier 8');
+
+INSERT INTO route_climbing_types (route_id, climbing_types) VALUES
+(1, 'VOIE'),
+(2, 'GRANDE_VOIE');
