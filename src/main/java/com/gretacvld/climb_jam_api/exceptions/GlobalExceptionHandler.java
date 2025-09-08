@@ -64,6 +64,11 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
     }
 
+    @ExceptionHandler(RouteNotFoundException.class)
+    public ResponseEntity<String> handleRouteNotFound(RouteNotFoundException e) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+    }
+
     // JWT Exceptions
     @ExceptionHandler(SecurityException.class)
     public ResponseEntity<String> handleInvalidSignature(SecurityException e) {
