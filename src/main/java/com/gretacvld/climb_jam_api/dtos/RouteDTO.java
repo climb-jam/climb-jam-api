@@ -2,6 +2,7 @@ package com.gretacvld.climb_jam_api.dtos;
 
 import com.gretacvld.climb_jam_api.enums.ClimbingType;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,7 +14,12 @@ import java.util.Set;
 @Data
 public class RouteDTO {
 
-    @NotBlank(message = "Le nom est obligatoire.")
+    private Long id;
+
+    @NotNull(message = "L'identifiant du site d'escalade est obligatoire.")
+    private Long cragId;
+
+    @NotBlank(message = "Le nom  de la voie est obligatoire.")
     private String name;
 
     private Set<ClimbingType> climbingTypes;
