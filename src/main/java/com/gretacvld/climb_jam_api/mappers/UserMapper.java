@@ -23,7 +23,7 @@ public class UserMapper {
     }
 
     // RegisterRequestDTO ==> User Entity
-    public User toEntity(RegisterRequestDTO dto, PasswordEncoder encoder) {
+    public static User toEntity(RegisterRequestDTO dto, PasswordEncoder encoder) {
         User user = new User();
         user.setEmail(dto.getEmail());
         user.setPassword(encoder.encode(dto.getPassword()));
