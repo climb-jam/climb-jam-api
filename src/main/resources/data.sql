@@ -109,6 +109,19 @@ INSERT INTO user (id, email, password, username, role) VALUES
 (10, 'oriane@example.com', '$2a$12$R.QBr1uwWlhNU1LpSL7c3OBSPJw95gL/eAuZGTsTMoCCherO0WC5y', 'oriane', 'USER'),
 (11, 'tristan@example.com', '$2a$12$R.QBr1uwWlhNU1LpSL7c3OBSPJw95gL/eAuZGTsTMoCCherO0WC5y', 'tristan', 'USER');
 
+-- PROFILES --
+INSERT INTO profile (user_id, avatar_url, city, postal_code) VALUES
+(1, NULL, 'Tours', '37000'),
+(2, NULL, 'Lille', '59000'),
+(3, NULL, 'Lyon', '69001'),
+(4, NULL, 'Marseille', '13001'),
+(5, NULL, 'Montpellier', '34000'),
+(6, NULL, 'Bordeaux', '33000'),
+(7, NULL, 'Nice', '06000'),
+(8, NULL, 'Nantes', '44000'),
+(9, NULL, 'Strasbourg', '67000'),
+(10, NULL, 'Toulouse', '31000'),
+(11, NULL, 'Grenoble', '38000');
 
 -- ROUTES --
 INSERT INTO route (crag_id, name, grade, height, incline_type, anchor_type, bolt_type, bolt_count, sector) VALUES

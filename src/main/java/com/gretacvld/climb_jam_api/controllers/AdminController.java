@@ -38,7 +38,7 @@ public class AdminController {
 
     @GetMapping("users/search/email/{email}")
     public ResponseEntity<UserDTO> getUserByEmail(@PathVariable String email) {
-        return userService.getUserByUsername(email).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+        return userService.getUserByEmail(email).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping("users/search/username/{username}")
