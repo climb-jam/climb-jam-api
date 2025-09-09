@@ -3,6 +3,7 @@ package com.gretacvld.climb_jam_api.controllers;
 import com.gretacvld.climb_jam_api.dtos.CragDTO;
 import com.gretacvld.climb_jam_api.dtos.RouteDTO;
 import com.gretacvld.climb_jam_api.services.RouteService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,7 @@ public class RouteController {
     private RouteService routeService;
 
     @PostMapping
-    public ResponseEntity<RouteDTO> createRoute(@RequestBody RouteDTO dto) {
+    public ResponseEntity<RouteDTO> createRoute(@Valid @RequestBody RouteDTO dto) {
         return ResponseEntity.ok(routeService.create(dto));
     }
 
@@ -31,7 +32,7 @@ public class RouteController {
         return routeService.getRouteById(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/search/name/{name}") // ex: /search/name/viaduc
+    @GetMapping("/search/name/{name}")
     public ResponseEntity<List<RouteDTO>> getRoutesByName(@PathVariable String name) {
         return ResponseEntity.ok(routeService.getRoutesByName(name));
     }

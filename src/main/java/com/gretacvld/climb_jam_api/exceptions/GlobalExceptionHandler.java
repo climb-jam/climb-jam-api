@@ -69,6 +69,16 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
     }
 
+    @ExceptionHandler(ProfileNotFoundException.class)
+    public ResponseEntity<String> handleProfileNotFound(ProfileNotFoundException e) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<String> handleUserNotFound(UserNotFoundException e) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+    }
+
     // JWT Exceptions
     @ExceptionHandler(SecurityException.class)
     public ResponseEntity<String> handleInvalidSignature(SecurityException e) {
