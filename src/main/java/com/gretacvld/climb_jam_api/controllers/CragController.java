@@ -2,6 +2,7 @@ package com.gretacvld.climb_jam_api.controllers;
 
 import com.gretacvld.climb_jam_api.dtos.CragDTO;
 import com.gretacvld.climb_jam_api.services.CragService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +17,7 @@ public class CragController {
     private CragService cragService;
 
     @PostMapping
-    public ResponseEntity<CragDTO> createCrag(@RequestBody CragDTO dto) {
+    public ResponseEntity<CragDTO> createCrag(@Valid @RequestBody CragDTO dto) {
         return ResponseEntity.ok(cragService.create(dto));
     }
 
@@ -46,7 +47,7 @@ public class CragController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CragDTO> updateCrag(@PathVariable Long id, @RequestBody CragDTO dto) {
+    public ResponseEntity<CragDTO> updateCrag(@PathVariable Long id, @Valid @RequestBody CragDTO dto) {
         return ResponseEntity.ok(cragService.update(id, dto));
     }
 

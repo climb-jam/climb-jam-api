@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 public class UserMapper {
 
     // User Entity ==> UserDTO
-    public UserDTO toDTO(User user) {
+    public static UserDTO toDTO(User user) {
         if (user == null) return null;
         return new UserDTO(
                 user.getId(),
