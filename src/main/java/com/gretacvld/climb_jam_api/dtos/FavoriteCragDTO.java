@@ -10,9 +10,11 @@ import lombok.NoArgsConstructor;
 @Data
 public class FavoriteCragDTO {
 
-    @NotNull(message = "L'identifiant de l'utilisateur est obligatoire.")
-    private Long userId;
+    private Long id;
 
-    @NotNull(message = "L'identifiant du site d'escalade est obligatoire.")
-    private Long cragId;
+    @NotNull(message = "L'utilisateur est obligatoire.")
+    private UserDTO user;
+
+    @NotNull(message = "Le site d'escalade est obligatoire.")
+    private CragDTO crag;
 }

@@ -79,6 +79,20 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
     }
 
+    @ExceptionHandler(SessionNotFoundException.class)
+    public ResponseEntity<String> handleSessionNotFound(SessionNotFoundException e) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+    }
+
+    @ExceptionHandler(AscentNotFoundException.class)
+    public ResponseEntity<String> handleAscentNotFound(AscentNotFoundException e) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+    }
+    @ExceptionHandler(FavoriteCragNotFoundException.class)
+    public ResponseEntity<String> handleFavoriteCragNotFound(FavoriteCragNotFoundException e) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+    }
+
     // JWT Exceptions
     @ExceptionHandler(SecurityException.class)
     public ResponseEntity<String> handleInvalidSignature(SecurityException e) {
