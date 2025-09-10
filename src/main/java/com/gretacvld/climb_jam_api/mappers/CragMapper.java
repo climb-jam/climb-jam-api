@@ -7,6 +7,7 @@ public class CragMapper {
 
     // Entity Crag ==> DTO CragDTO
     public static CragDTO toDTO(Crag crag) {
+        if (crag == null) return null;
         return new CragDTO(
                 crag.getId(),
                 crag.getName(),
@@ -28,6 +29,7 @@ public class CragMapper {
 
     // DTO CragDTO ==> Entity Crag
     public static Crag toEntity(CragDTO dto) {
+        if (dto == null) return null;
         return new Crag(
                 dto.getId(),
                 dto.getName(),

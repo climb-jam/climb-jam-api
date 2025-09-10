@@ -24,10 +24,11 @@ public class RouteService {
     private CragRepository cragRepository;
 
     public RouteDTO create(RouteDTO dto) {
-        Crag crag = cragRepository.findById(dto.getCragId())
-                .orElseThrow(() -> new CragNotFoundException("Site d'escalade introuvable avec l'ID " + dto.getCragId()));
-        Route route = routeRepository.save(RouteMapper.toEntity(dto, crag));
-        return RouteMapper.toDTO(route);
+        Crag crag = cragRepository.findById(dto.getCrag().getId())
+                .orElseThrow(() -> new CragNotFoundException("Site d'escalade introuvable"));
+        Route route = RouteMapper.toEntity(dto);
+        route.setCrag(crag);
+        return RouteMapper.toDTO(routeRepository.save(route));
     }
 
     public List<RouteDTO> getAllRoutes() {
@@ -50,6 +51,21 @@ public class RouteService {
         return routeRepository.findByCragLatAndCragLon(lat, lon).stream()
                 .map(RouteMapper::toDTO)
                 .collect(Collectors.toList());
+    }
+
+    public RouteDTO update(Long id, RouteDTO dto) {
+        Route route = routeRepository.findById(id)
+                .orElseThrow(() -> new RouteNotFoundException("Voie introuvable avec l'ID " + id));
+        route.setName(dto.getName());
+        route.setClimbingTypes(dto.getClimbingTypes());
+        route.setGrade(dto.getGrade());
+        route.setHeight(dto.getHeight());
+        route.setInclineType(dto.getInclineType());
+        route.setAnchorType(dto.getAnchorType());
+        route.setBoltType(dto.getBoltType());
+        route.setBoltCount(dto.getBoltCount());
+        route.setSector(dto.getSector());
+        return RouteMapper.toDTO(routeRepository.save(route));
     }
 
     public void delete(Long id) {

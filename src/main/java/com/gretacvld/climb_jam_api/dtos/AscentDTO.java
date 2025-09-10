@@ -12,14 +12,16 @@ import java.time.LocalDate;
 @Data
 public class AscentDTO {
 
-    @NotNull(message = "L'identifiant de l'utilisateur est obligatoire.")
-    private Long userId;
+    private Long id;
 
-    @NotNull(message = "L'identifiant de la voie est obligatoire.")
-    private Long routeId;
+    @NotNull(message = "L'utilisateur est obligatoire.")
+    private UserDTO user;
 
-    @NotNull(message = "L'identifiant de la session est obligatoire.")
-    private Long sessionId;
+    @NotNull(message = "La voie est obligatoire.")
+    private RouteDTO route;
+
+    @NotNull(message = "La session est obligatoire.")
+    private SessionDTO session;
 
     @NotNull(message = "La date de l'ascension est obligatoire.")
     @PastOrPresent(message = "La date de l'ascension ne peut pas être dans le futur.")
