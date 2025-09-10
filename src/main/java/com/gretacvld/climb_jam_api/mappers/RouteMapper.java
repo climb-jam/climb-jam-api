@@ -1,32 +1,34 @@
 package com.gretacvld.climb_jam_api.mappers;
 
 import com.gretacvld.climb_jam_api.dtos.RouteDTO;
-import com.gretacvld.climb_jam_api.entities.Crag;
 import com.gretacvld.climb_jam_api.entities.Route;
 
 public class RouteMapper {
 
     // Entity Route ==> RouteDTO
     public static RouteDTO toDTO(Route route) {
-        RouteDTO dto = new RouteDTO();
-        dto.setCragId(route.getCrag().getId());
-        dto.setName(route.getName());
-        dto.setClimbingTypes(route.getClimbingTypes());
-        dto.setGrade(route.getGrade());
-        dto.setHeight(route.getHeight());
-        dto.setInclineType(route.getInclineType());
-        dto.setAnchorType(route.getAnchorType());
-        dto.setBoltType(route.getBoltType());
-        dto.setBoltCount(route.getBoltCount());
-        dto.setSector(route.getSector());
-        return dto;
+        if (route == null) return null;
+        return new RouteDTO(
+                route.getId(),
+                CragMapper.toDTO(route.getCrag()),
+                route.getName(),
+                route.getClimbingTypes(),
+                route.getGrade(),
+                route.getHeight(),
+                route.getInclineType(),
+                route.getAnchorType(),
+                route.getBoltType(),
+                route.getBoltCount(),
+                route.getSector()
+        );
     }
 
     // RouteDTO ==> Entity Route
-    public static Route toEntity(RouteDTO dto, Crag crag) {
+    public static Route toEntity(RouteDTO dto) {
+        if (dto == null) return null;
         Route route = new Route();
         route.setId(dto.getId());
-        route.setCrag(crag);
+        route.setCrag(CragMapper.toEntity(dto.getCrag()));
         route.setName(dto.getName());
         route.setClimbingTypes(dto.getClimbingTypes());
         route.setGrade(dto.getGrade());

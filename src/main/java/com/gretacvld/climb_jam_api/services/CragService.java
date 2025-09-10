@@ -52,16 +52,29 @@ public class CragService {
     }
 
     public CragDTO update(Long id, CragDTO dto) {
-        return cragRepository.findById(id)
-                .map(crag -> {
-                    Crag updated = CragMapper.toEntity(dto);
-                    updated.setId((crag.getId()));
-                    return CragMapper.toDTO(cragRepository.save(updated));
-                })
-                .orElseThrow(() -> new CragNotFoundException("Site d'escalade introuvable avec l'ID " + id));
+        Crag crag = cragRepository.findById(id)
+                .orElseThrow(() -> new CragNotFoundException("Site introuvable avec l'ID " + id));
+        crag.setName(dto.getName());
+        crag.setCity(dto.getCity());
+        crag.setPostalCode(dto.getPostalCode());
+        crag.setLat(dto.getLat());
+        crag.setLon(dto.getLon());
+        crag.setAltitude(dto.getAltitude());
+        crag.setRockType(dto.getRockType());
+        crag.setMinGrade(dto.getMinGrade());
+        crag.setMaxGrade(dto.getMaxGrade());
+        crag.setExposure(dto.getExposure());
+        crag.setFavorableSeasons(dto.getFavorableSeasons());
+        crag.setOrientations(dto.getOrientations());
+        crag.setPhotoUrl(dto.getPhotoUrl());
+        crag.setThumbnailUrl(dto.getThumbnailUrl());
+        return CragMapper.toDTO(cragRepository.save(crag));
     }
 
     public void delete(Long id) {
+        if (!cragRepository.existsById(id)) {
+            throw new CragNotFoundException("Site d'escalade introuvable avec l'ID " + id);
+        }
         cragRepository.deleteById(id);
     }
 }

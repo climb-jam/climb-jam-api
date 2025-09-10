@@ -16,8 +16,8 @@ public class RouteDTO {
 
     private Long id;
 
-    @NotNull(message = "L'identifiant du site d'escalade est obligatoire.")
-    private Long cragId;
+    @NotNull(message = "Le site d'escalade est obligatoire.")
+    private CragDTO crag;
 
     @NotBlank(message = "Le nom  de la voie est obligatoire.")
     private String name;
