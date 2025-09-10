@@ -18,15 +18,15 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
     
     @Autowired
-    private AuthService userService;
+    private AuthService authService;
 
     @PostMapping("/register")
     public ResponseEntity<AuthResponseDTO> register(@Valid @RequestBody RegisterRequestDTO dto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(userService.register(dto));
+        return ResponseEntity.status(HttpStatus.CREATED).body(authService.register(dto));
     }
 
     @PostMapping("/login")
     public ResponseEntity<AuthResponseDTO> login(@Valid @RequestBody LoginRequestDTO dto) {
-        return ResponseEntity.ok(userService.login(dto));
+        return ResponseEntity.ok(authService.login(dto));
     }
 }

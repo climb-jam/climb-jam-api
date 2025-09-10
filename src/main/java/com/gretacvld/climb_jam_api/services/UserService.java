@@ -1,7 +1,9 @@
 package com.gretacvld.climb_jam_api.services;
 
 import com.gretacvld.climb_jam_api.dtos.UserDTO;
+import com.gretacvld.climb_jam_api.entities.User;
 import com.gretacvld.climb_jam_api.exceptions.UserNotFoundException;
+import com.gretacvld.climb_jam_api.mappers.ProfileMapper;
 import com.gretacvld.climb_jam_api.mappers.UserMapper;
 import com.gretacvld.climb_jam_api.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,16 +41,20 @@ public class UserService {
     }
 
     public UserDTO updateUser(Long id, UserDTO dto) {
-        return userRepository.findById(id).map(user -> {
-            user.setUsername(dto.getUsername());
-            user.setEmail(dto.getEmail());
-            return UserMapper.toDTO(userRepository.save(user));
-        }).orElseThrow(() -> new UserNotFoundException("Utilisateur introuvable avec l'ID " + id));
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException("Utilisateur introuvable avec l'ID " + id));
+        user.setEmail(dto.getEmail());
+        user.setUsername(dto.getUsername());
+        user.setRole(dto.getRole());
+        if(dto.getProfile() != null) {
+            user.setProfile(ProfileMapper.toEntity(dto.getProfile(), user));
+        }
+        return UserMapper.toDTO(userRepository.save(user));
     }
 
     public void deleteUser(Long id) {
         if (!userRepository.existsById(id)) {
-            throw new UserNotFoundException("Impossible de supprimer. Utilisateur introuvable avec l'ID : " + id);
+            throw new UserNotFoundException("Utilisateur introuvable avec l'ID : " + id);
         }
         userRepository.deleteById(id);
     }
