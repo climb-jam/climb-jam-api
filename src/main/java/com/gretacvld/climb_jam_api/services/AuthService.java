@@ -27,8 +27,6 @@ public class AuthService {
     private JwtUtil jwtUtil;
     @Autowired
     private AuthenticationManager authenticationManager;
-    @Autowired
-    private UserMapper userMapper;
 
     public AuthResponseDTO register(RegisterRequestDTO dto) {
 
@@ -43,13 +41,13 @@ public class AuthService {
         }
 
         // Registers new user
-        User user = userMapper.toEntity(dto, encoder);
+        User user = UserMapper.toEntity(dto, encoder);
         // Save in DB
         User savedUser = userRepository.save(user);
         // Generates JWT
         String token = jwtUtil.generateToken(savedUser.getEmail());
 
-        return new AuthResponseDTO(userMapper.toDTO(savedUser), token);
+        return new AuthResponseDTO(UserMapper.toDTO(savedUser), token);
     }
 
     public AuthResponseDTO login(LoginRequestDTO dto) {
@@ -75,7 +73,7 @@ public class AuthService {
 
         // Returns AuthResponseDTO (user + token)
         return new AuthResponseDTO(
-                userMapper.toDTO(user),
+                UserMapper.toDTO(user),
                 token
         );
     }
