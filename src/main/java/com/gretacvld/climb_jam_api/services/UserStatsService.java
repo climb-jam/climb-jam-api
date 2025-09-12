@@ -9,6 +9,7 @@ import com.gretacvld.climb_jam_api.repositories.SessionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -44,12 +45,18 @@ public class UserStatsService {
                 ));
 
         // Ascents by Route Grade
-        Map<String, Long> ascentsByGrade = ascents.stream()
+        Map<String, Long> ascentsByGrade = new LinkedHashMap<>();
+        List<String> allGrades = List.of(
+                "1a","1b","1c","2a","2b","2c","3a","3b","3c",
+                "4a","4b","4c","5a","5b","5c","6a","6b","6c",
+                "7a","7b","7c","8a","8b","8c","9a", "9b", "9c"
+        );
+        allGrades.forEach(grade -> ascentsByGrade.put(grade, 0L));
+
+        ascents.stream()
                 .filter(ascent -> ascent.getRoute() != null && ascent.getRoute().getGrade() !=null)
-                .collect(Collectors.groupingBy(
-                        ascent -> ascent.getRoute().getGrade(),
-                        Collectors.counting()
-                ));
+                .forEach(ascent -> ascentsByGrade.put(ascent.getRoute().getGrade(),
+                        ascentsByGrade.get(ascent.getRoute().getGrade()) + 1));
 
 //        Map<Integer, Map<String, String>> progressionByYear;
 //        Map<Month, Long> ascentsByMonth;
