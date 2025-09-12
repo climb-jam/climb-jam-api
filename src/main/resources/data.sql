@@ -124,10 +124,50 @@ INSERT INTO profile (user_id, avatar_url, city, postal_code) VALUES
 (11, NULL, 'Grenoble', '38000');
 
 -- ROUTES --
-INSERT INTO route (crag_id, name, grade, height, incline_type, anchor_type, bolt_type, bolt_count, sector) VALUES
-('1', 'Abrasive Stone', '7a', 35, 'dalle positive', '2 points chaînés', 'broches', NULL, 'Pilier 4'),
-('1', 'Desmaison', '6c', 30, NULL, '2 points chaînés', 'broches', NULL, 'Pilier 8');
+INSERT INTO route (id, crag_id, name, grade, height, incline_type, anchor_type, bolt_type, bolt_count, sector) VALUES
+(1, 1, 'Abrasive Stone', '7a', 35, 'dalle positive', '2 points chaînés', 'broches', NULL, 'Pilier 4'),
+(2, 1, 'Desmaison', '6c', 30, NULL, '2 points chaînés', 'broches', NULL, 'Pilier 8'),
+(3, 3, 'Le Dièdre des Gaillands', '5c', 28, 'dièdre', '2 points chaînés', 'plaquettes', 8, 'Secteur Central'),
+(4, 3, 'Les Dalles Grises', '6a', 22, 'dalle', '2 points chaînés', 'plaquettes', 7, 'Secteur Gauche'),
+(5, 11, 'Virage à Droite', '7a+', 18, 'surplomb', '2 points chaînés', 'plaquettes', 9, 'Mur Principal'),
+(6, 11, 'Le Crux du Virage', '7b', 20, 'surplomb', '2 points chaînés', 'plaquettes', 10, 'Mur Principal'),
+(7, 6, 'Calcaire en Fête', '6b', 25, 'mur raide', '2 points chaînés', 'plaquettes', 8, 'Secteur Gauche');
 
+-- CLIMBING TYPES --
 INSERT INTO route_climbing_types (route_id, climbing_types) VALUES
 (1, 'VOIE'),
-(2, 'GRANDE_VOIE');
+(2, 'GRANDE_VOIE'),
+(3, 'VOIE'),
+(4, 'VOIE'),
+(5, 'VOIE'),
+(6, 'VOIE'),
+(7, 'VOIE');
+
+-- SESSIONS --
+INSERT INTO session (id, user_id, crag_id, date) VALUES
+(1, 2, 1,  '2025-04-12'), -- Alice au Viaduc des Fauvettes
+(2, 3, 3,  '2025-05-03'), -- Ben aux Gaillands
+(3, 4, 11, '2025-06-15'), -- Chloé au Virage
+(4, 5, 6,  '2025-07-02'); -- Daniel à La Garotte
+
+-- ASCENTS --
+-- Alice (user_id=2)
+INSERT INTO ascent (user_id, route_id, session_id, date, style, tries, comment) VALUES
+(2, 1, 1, '2025-04-12', 'A_VUE', 1, 'Belle dalle technique, bon feeling'),
+(2, 2, 1, '2025-04-12', 'ECHEC', 2, 'Tombée au dernier mouv, à retravailler');
+
+-- Ben (user_id=3)
+INSERT INTO ascent (user_id, route_id, session_id, date, style, tries, comment) VALUES
+(3, 3, 2, '2025-05-03', 'FLASH', 1, 'Parfait pour s’échauffer'),
+(3, 4, 2, '2025-05-03', 'REDPOINT', 3, 'Dur au départ mais passé après travail');
+
+-- Chloé (user_id=4)
+INSERT INTO ascent (user_id, route_id, session_id, date, style, tries, comment) VALUES
+(4, 5, 3, '2025-06-15', 'TRAVAIL', 4, 'Magnifique surplomb, pas encore enchaîné'),
+(4, 6, 3, '2025-06-15', 'ECHEC', 2, 'Très physique, encore hors de portée');
+
+-- Daniel (user_id=5)
+INSERT INTO ascent (user_id, route_id, session_id, date, style, tries, comment) VALUES
+(5, 7, 4, '2025-07-02', 'A_VUE', 1, 'Bonne fluidité, belles prises'),
+(5, 3, 4, '2025-07-02', 'REDPOINT', 2, 'Un peu dur au crux mais réussi'),
+(5, 4, 4, '2025-07-02', 'FLASH', 1, 'Facile grâce à une bonne lecture');

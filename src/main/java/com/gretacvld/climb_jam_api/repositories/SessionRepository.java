@@ -9,4 +9,6 @@ public interface SessionRepository extends JpaRepository<Session, Long> {
 
     List<Session> findByUserId(Long userId);
     List<Session> findByCragId(Long cragId);
+
+    long countByUserId(Long userId);
 }
