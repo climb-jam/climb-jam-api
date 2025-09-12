@@ -13,12 +13,12 @@ import java.util.Map;
 public class UserStatsDTO {
 
     private long totalSessions;
-    private Map<String, Long> ascentsByClimbingType;
-    private Map<String, Long> ascentsByGrade;
-    private Map<Integer, Map<String, String>> progressionByYear;
-    private Map<Month, Long> ascentsByMonth;
-    private Map<Integer, Long> ascentsByYear;
     private long totalAscents;
     private int totalMetersClimbed;
-    private String maxGradeClimbed;
+    private Map<String, Long> ascentsByClimbingType;
+    private Map<String, Long> ascentsByGrade;
+//    private Map<Integer, Map<String, String>> progressionByYear;
+//    private Map<Month, Long> ascentsByMonth;
+//    private Map<Integer, Long> ascentsByYear;
+//    private String maxGradeClimbed;
 }

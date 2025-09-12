@@ -40,11 +40,14 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
                                 .requestMatchers("/auth/**").permitAll()
-                                .requestMatchers("/user/**").hasAnyRole("USER","ADMIN")
                                 .requestMatchers("/admin/**").hasRole("ADMIN")
+                                .requestMatchers("/ascents/**").hasAnyRole("USER","ADMIN")
                                 .requestMatchers("/crags/**").hasAnyRole("USER","ADMIN")
-                                .requestMatchers("/routes/**").hasAnyRole("USER","ADMIN")
+                                .requestMatchers("/favorites/**").hasAnyRole("USER","ADMIN")
                                 .requestMatchers("/profiles/**").hasAnyRole("USER","ADMIN")
+                                .requestMatchers("/routes/**").hasAnyRole("USER","ADMIN")
+                                .requestMatchers("/sessions/**").hasAnyRole("USER","ADMIN")
+                                .requestMatchers("/users/**").hasAnyRole("USER","ADMIN")
                                 .requestMatchers(   "/swagger-ui/**",
                                         "/v3/api-docs/**",
                                         "/swagger-resources/**",
@@ -58,7 +61,7 @@ public class SecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(); // Hachage de mot de passe (n'est pas crypté)
+        return new BCryptPasswordEncoder();
     }
 
     @Bean
