@@ -132,9 +132,17 @@ INSERT INTO route (id, crag_id, name, grade, height, incline_type, anchor_type, 
 (5, 11, 'Virage à Droite', '7a+', 18, 'surplomb', '2 points chaînés', 'plaquettes', 9, 'Mur Principal'),
 (6, 11, 'Le Crux du Virage', '7b', 20, 'surplomb', '2 points chaînés', 'plaquettes', 10, 'Mur Principal'),
 (7, 6, 'Calcaire en Fête', '6b', 25, 'mur raide', '2 points chaînés', 'plaquettes', 8, 'Secteur Gauche'),
-(8, 1, 'Petit prince', '3c', 7, 'mur vertical', '2 points chaînés', 'broches', NULL, 'Pilier 11'),
-(9, 1, 'Fi', '4a', 7, 'dalle positive', '2 points chaînés', 'broches', NULL, 'Pilier 11'),
-(10, 1, 'Jackinou', '5a', 9, 'dalle positive', '2 points chaînés', 'broches', NULL, 'Pilier 10');
+(8, 7, 'Les Abeilles de Feu', '6c', 22, 'mur raide', '2 points chaînés', 'plaquettes', 10, 'Secteur Ouest'),
+(9, 8, 'Tour Infernale', '7b+', 30, 'dévers', '2 points chaînés', 'plaquettes', 12, 'Face Sud'),
+(10, 9, 'Petit Mur Jaune', '5a', 15, 'dalle', '2 points chaînés', 'plaquettes', 5, 'Mur Central'),
+(11, 10, 'L’Arche', '6a+', 25, 'dièdre', '2 points chaînés', 'plaquettes', 8, 'Secteur Principal'),
+(12, 13, 'Bloc du Cube', '7a', 6, 'toit', NULL, NULL, NULL, 'Bloc Central'),
+(13, 22, 'Écureuil Express', '6b+', 18, 'surplomb', '2 points chaînés', 'plaquettes', 7, 'Secteur Gauche'),
+(14, 26, 'Carnage Facile', '7c', 5, 'dévers', NULL, NULL, NULL, 'Bloc Mythique'),
+(15, 30, 'Les Ayes Verticales', '6a', 20, 'mur vertical', '2 points chaînés', 'plaquettes', 6, 'Pilier'),
+(16, 27, 'Diplodocus Rex', '7a+', 22, 'dalle technique', '2 points chaînés', 'plaquettes', 9, 'Face Est'),
+(17, 18, 'Seynes Extrême', '8a', 28, 'mur raide', '2 points chaînés', 'plaquettes', 12, 'Secteur Dur');
+
 
 -- CLIMBING TYPES --
 INSERT INTO route_climbing_types (route_id, climbing_types) VALUES
@@ -147,14 +155,25 @@ INSERT INTO route_climbing_types (route_id, climbing_types) VALUES
 (7, 'VOIE'),
 (8, 'VOIE'),
 (9, 'VOIE'),
-(10, 'VOIE');
+(10, 'VOIE'),
+(11, 'VOIE'),
+(12, 'BLOC'),
+(13, 'VOIE'),
+(14, 'BLOC'),
+(15, 'VOIE'),
+(16, 'VOIE'),
+(17, 'VOIE');
 
 -- SESSIONS --
 INSERT INTO session (id, user_id, crag_id, date) VALUES
 (1, 2, 1,  '2025-04-12'), -- Alice au Viaduc des Fauvettes
 (2, 3, 3,  '2025-05-03'), -- Ben aux Gaillands
 (3, 4, 11, '2025-06-15'), -- Chloé au Virage
-(4, 5, 6,  '2025-07-02'); -- Daniel à La Garotte
+(4, 5, 6,  '2025-07-02'), -- Daniel à La Garotte
+(5, 2, 1, '2025-01-15'),
+(6, 2, 1, '2025-03-10'),
+(7, 2, 3, '2025-06-05'),
+(8, 2, 3, '2025-09-20');
 
 -- ASCENTS --
 -- Alice (user_id=2)
@@ -177,3 +196,21 @@ INSERT INTO ascent (user_id, route_id, session_id, date, style, tries, comment) 
 (5, 7, 4, '2025-07-02', 'A_VUE', 1, 'Bonne fluidité, belles prises'),
 (5, 3, 4, '2025-07-02', 'REDPOINT', 2, 'Un peu dur au crux mais réussi'),
 (5, 4, 4, '2025-07-02', 'FLASH', 1, 'Facile grâce à une bonne lecture');
+
+-- ASCENTS supplémentaires pour Alice
+INSERT INTO ascent (user_id, route_id, session_id, date, style, tries, comment) VALUES
+-- Session janvier
+(2, 1, 5, '2025-01-15', 'A_VUE', 1, 'Bonne lecture de la dalle'),
+(2, 2, 5, '2025-01-15', 'ECHEC', 2, 'Mouvements compliqués'),
+
+-- Session mars
+(2, 1, 6, '2025-03-10', 'FLASH', 1, 'Plus facile avec l’échauffement'),
+(2, 2, 6, '2025-03-10', 'A_VUE', 1, 'Passé à vue après révision'),
+
+-- Session juin
+(2, 3, 7, '2025-06-05', 'REDPOINT', 2, NULL),
+(2, 4, 7, '2025-06-05', 'FLASH', 1, 'Dalle grisante'),
+
+-- Session septembre
+(2, 3, 8, '2025-09-20', 'A_VUE', 1, NULL),
+(2, 4, 8, '2025-09-20', 'REDPOINT', 3, 'Travail sur la lecture de mouvements');
