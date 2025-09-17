@@ -143,6 +143,7 @@ INSERT INTO route (id, crag_id, name, grade, height, incline_type, anchor_type, 
 (16, 27, 'Diplodocus Rex', '7a+', 22, 'dalle technique', '2 points chaînés', 'plaquettes', 9, 'Face Est'),
 (17, 18, 'Seynes Extrême', '8a', 28, 'mur raide', '2 points chaînés', 'plaquettes', 12, 'Secteur Dur');
 
+
 -- CLIMBING TYPES --
 INSERT INTO route_climbing_types (route_id, climbing_types) VALUES
 (1, 'VOIE'),

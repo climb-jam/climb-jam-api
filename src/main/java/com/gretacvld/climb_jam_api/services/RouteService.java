@@ -1,10 +1,12 @@
 package com.gretacvld.climb_jam_api.services;
 
+import com.gretacvld.climb_jam_api.dtos.CragDTO;
 import com.gretacvld.climb_jam_api.dtos.RouteDTO;
 import com.gretacvld.climb_jam_api.entities.Crag;
 import com.gretacvld.climb_jam_api.entities.Route;
 import com.gretacvld.climb_jam_api.exceptions.CragNotFoundException;
 import com.gretacvld.climb_jam_api.exceptions.RouteNotFoundException;
+import com.gretacvld.climb_jam_api.mappers.CragMapper;
 import com.gretacvld.climb_jam_api.mappers.RouteMapper;
 import com.gretacvld.climb_jam_api.repositories.CragRepository;
 import com.gretacvld.climb_jam_api.repositories.RouteRepository;
@@ -37,14 +39,21 @@ public class RouteService {
                 .collect(Collectors.toList());
     }
 
-    public Optional<RouteDTO> getRouteById(Long id) {
-        return routeRepository.findById(id).map(RouteMapper::toDTO);
-    }
 
-    public List<RouteDTO> getRoutesByName(String name) {
-        return routeRepository.findByNameContainingIgnoreCase(name).stream()
+
+    public List<RouteDTO> getRoutesByCragId(Long crag_id) {
+        return routeRepository.findByCragId(crag_id).stream()
                 .map(RouteMapper::toDTO)
                 .collect(Collectors.toList());
+    }
+
+    public List<RouteDTO> getRouteByName(String name) {
+        return routeRepository.findByNameContainingIgnoreCase(name).stream()
+                .map(RouteMapper::toDTO).collect(Collectors.toList());
+    }
+    public Optional<RouteDTO> getRouteById(Long id) {
+        return routeRepository.findById(id)
+                .map(RouteMapper::toDTO);
     }
 
     public List<RouteDTO> getRoutesByCragCoordinates(Double lat, Double lon) {
