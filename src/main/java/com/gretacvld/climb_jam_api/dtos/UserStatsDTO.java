@@ -17,8 +17,8 @@ public class UserStatsDTO {
     private int totalMetersClimbed;
     private Map<String, Long> ascentsByClimbingType;
     private Map<String, Long> ascentsByGrade;
-//    private Map<Integer, Map<String, String>> progressionByYear;
-//    private Map<Month, Long> ascentsByMonth;
-//    private Map<Integer, Long> ascentsByYear;
+    private Map<Month, Long> ascentsByMonth;
+    private Map<Integer, Long> ascentsByYear;
+    private Map<Integer, Map<String, String>> progressionByYear;
 //    private String maxGradeClimbed;
 }
