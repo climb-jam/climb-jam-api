@@ -26,16 +26,25 @@ public class RouteController {
     public ResponseEntity<List<RouteDTO>> getAllRoutes() {
         return ResponseEntity.ok(routeService.getAllRoutes());
     }
+    @GetMapping("/name/{name}")
+    public ResponseEntity<List<RouteDTO>> getRouteByName(@PathVariable String name) {
+        return ResponseEntity.ok(routeService.getRouteByName(name));
+    }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{crag_id}")
+    public ResponseEntity<List<RouteDTO>> getRoutesByCragId(@PathVariable Long crag_id) {
+        return ResponseEntity.ok(routeService.getRoutesByCragId(crag_id));
+    }
+
+    @GetMapping("/details/{id}")
     public ResponseEntity<RouteDTO> getRouteById(@PathVariable Long id) {
         return routeService.getRouteById(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/search")
+/*    @GetMapping("/search")
     public ResponseEntity<List<RouteDTO>> getRoutesByName(@RequestParam String name) {
         return ResponseEntity.ok(routeService.getRoutesByName(name));
-    }
+    }*/
 
     @GetMapping("/gps")
     public ResponseEntity<List<RouteDTO>> getRoutesByCragCoordinates(@RequestParam Double lat, @RequestParam Double lon) {

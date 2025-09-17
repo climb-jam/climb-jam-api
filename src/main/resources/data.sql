@@ -131,7 +131,10 @@ INSERT INTO route (id, crag_id, name, grade, height, incline_type, anchor_type, 
 (4, 3, 'Les Dalles Grises', '6a', 22, 'dalle', '2 points chaînés', 'plaquettes', 7, 'Secteur Gauche'),
 (5, 11, 'Virage à Droite', '7a+', 18, 'surplomb', '2 points chaînés', 'plaquettes', 9, 'Mur Principal'),
 (6, 11, 'Le Crux du Virage', '7b', 20, 'surplomb', '2 points chaînés', 'plaquettes', 10, 'Mur Principal'),
-(7, 6, 'Calcaire en Fête', '6b', 25, 'mur raide', '2 points chaînés', 'plaquettes', 8, 'Secteur Gauche');
+(7, 6, 'Calcaire en Fête', '6b', 25, 'mur raide', '2 points chaînés', 'plaquettes', 8, 'Secteur Gauche'),
+(8, 1, 'Petit prince', '3c', 7, 'mur vertical', '2 points chaînés', 'broches', NULL, 'Pilier 11'),
+(9, 1, 'Fi', '4a', 7, 'dalle positive', '2 points chaînés', 'broches', NULL, 'Pilier 11'),
+(10, 1, 'Jackinou', '5a', 9, 'dalle positive', '2 points chaînés', 'broches', NULL, 'Pilier 10');
 
 -- CLIMBING TYPES --
 INSERT INTO route_climbing_types (route_id, climbing_types) VALUES
@@ -141,7 +144,10 @@ INSERT INTO route_climbing_types (route_id, climbing_types) VALUES
 (4, 'VOIE'),
 (5, 'VOIE'),
 (6, 'VOIE'),
-(7, 'VOIE');
+(7, 'VOIE'),
+(8, 'VOIE'),
+(9, 'VOIE'),
+(10, 'VOIE');
 
 -- SESSIONS --
 INSERT INTO session (id, user_id, crag_id, date) VALUES
