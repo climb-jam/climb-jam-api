@@ -1,11 +1,13 @@
 package com.gretacvld.climb_jam_api.controllers;
 
 import com.gretacvld.climb_jam_api.dtos.SessionDTO;
+import com.gretacvld.climb_jam_api.entities.CustomUserDetails;
 import com.gretacvld.climb_jam_api.services.SessionService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,6 +18,12 @@ public class SessionController {
 
     @Autowired
     private SessionService sessionService;
+
+    @GetMapping("/me") // Shows sessions of the connected user
+    public ResponseEntity<List<SessionDTO>> getMySessions(@AuthenticationPrincipal CustomUserDetails userDetails) {
+        Long userId = userDetails.getId();
+        return ResponseEntity.ok(sessionService.getSessionsByUserId(userId));
+    }
 
     @PostMapping
     public ResponseEntity<SessionDTO> createSession(@RequestBody @Valid SessionDTO dto) {

@@ -44,7 +44,7 @@ public class AscentService {
     }
 
     public List<AscentDTO> getAscentsByUserId(Long userId) {
-        return ascentRepository.findByUserId(userId).stream()
+        return ascentRepository.findByUserIdOrderByDateDesc(userId).stream()
                 .map(AscentMapper::toDTO)
                 .collect(Collectors.toList());
     }

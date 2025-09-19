@@ -6,12 +6,20 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.Collections;
 
-public class CustomerUserDetails implements UserDetails {
+public class CustomUserDetails implements UserDetails {
 
     private final User user;
 
-    public CustomerUserDetails(User user) {
+    public CustomUserDetails(User user) {
         this.user = user;
+    }
+
+    public Long getId() {
+        return user.getId();
+    }
+
+    public User getUser() {
+        return user;
     }
 
     @Override

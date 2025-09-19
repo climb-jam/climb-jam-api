@@ -1,11 +1,14 @@
 package com.gretacvld.climb_jam_api.controllers;
 
 import com.gretacvld.climb_jam_api.dtos.AscentDTO;
+import com.gretacvld.climb_jam_api.entities.CustomUserDetails;
 import com.gretacvld.climb_jam_api.services.AscentService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,6 +19,12 @@ public class AscentController {
 
     @Autowired
     private AscentService ascentService;
+
+    @GetMapping("/me") // Shows ascents of the connected user
+    public ResponseEntity<List<AscentDTO>> getMyAscents(@AuthenticationPrincipal CustomUserDetails userDetails) {
+        Long userId = userDetails.getId();
+        return ResponseEntity.ok(ascentService.getAscentsByUserId(userId));
+    }
 
     @PostMapping
     public ResponseEntity<AscentDTO> createAscent(@RequestBody @Valid AscentDTO dto) {

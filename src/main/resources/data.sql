@@ -213,3 +213,9 @@ INSERT INTO ascent (user_id, route_id, session_id, date, style, tries, comment) 
 -- Session septembre
 (2, 3, 8, '2025-09-20', 'A_VUE', 1, NULL),
 (2, 4, 8, '2025-09-20', 'REDPOINT', 3, 'Travail sur la lecture de mouvements');
+
+-- FAVORITE CRAGS --
+INSERT INTO favorite_crag (id, user_id, crag_id) VALUES (1, 2, 1);   -- Alice → Viaduc des Fauvettes
+INSERT INTO favorite_crag (id, user_id, crag_id) VALUES (2, 2, 3);   -- Alice → Les Gaillands
+INSERT INTO favorite_crag (id, user_id, crag_id) VALUES (3, 3, 3);   -- Ben → Les Gaillands
+INSERT INTO favorite_crag (id, user_id, crag_id) VALUES (4, 3, 11);  -- Ben → Le Virage
