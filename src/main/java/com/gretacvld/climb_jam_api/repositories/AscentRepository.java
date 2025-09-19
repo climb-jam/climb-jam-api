@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface AscentRepository extends JpaRepository<Ascent, Long> {
 
-    List<Ascent> findByUserId(Long userId);
+    List<Ascent> findByUserIdOrderByDateDesc(Long userId);
     List<Ascent> findByRouteId(Long routeId);
     List<Ascent> findBySessionId(Long sessionId);
 

@@ -23,7 +23,7 @@ public class UserStatsService {
     public UserStatsDTO getUserStats(Long userId) {
 
         List<Session> sessions = sessionRepository.findByUserId(userId);
-        List<Ascent> ascents = ascentRepository.findByUserId(userId);
+        List<Ascent> ascents = ascentRepository.findByUserIdOrderByDateDesc(userId);
 
         long totalSessions = sessionRepository.countByUserId(userId);
         long totalAscents = ascentRepository.countByUserId(userId);

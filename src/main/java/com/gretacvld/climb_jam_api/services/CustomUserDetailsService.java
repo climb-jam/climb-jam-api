@@ -1,6 +1,6 @@
 package com.gretacvld.climb_jam_api.services;
 
-import com.gretacvld.climb_jam_api.entities.CustomerUserDetails;
+import com.gretacvld.climb_jam_api.entities.CustomUserDetails;
 import com.gretacvld.climb_jam_api.entities.User;
 import com.gretacvld.climb_jam_api.repositories.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,6 +21,6 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("Utilisateur non trouvé"));
-        return new CustomerUserDetails(user);
+        return new CustomUserDetails(user);
     }
 }
