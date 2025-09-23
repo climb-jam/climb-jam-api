@@ -14,13 +14,13 @@ public class AscentDTO {
 
     private Long id;
 
-    @NotNull(message = "L'utilisateur est obligatoire.")
+    //@NotNull(message = "L'utilisateur est obligatoire.")
     private UserDTO user;
 
     @NotNull(message = "La voie est obligatoire.")
     private RouteDTO route;
 
-    @NotNull(message = "La session est obligatoire.")
+    //@NotNull(message = "La session est obligatoire.")
     private SessionDTO session;
 
     @NotNull(message = "La date de l'ascension est obligatoire.")
