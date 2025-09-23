@@ -2,6 +2,7 @@ package com.gretacvld.climb_jam_api.services;
 
 import com.gretacvld.climb_jam_api.dtos.UserDTO;
 import com.gretacvld.climb_jam_api.entities.User;
+import com.gretacvld.climb_jam_api.enums.Role;
 import com.gretacvld.climb_jam_api.exceptions.UserNotFoundException;
 import com.gretacvld.climb_jam_api.mappers.ProfileMapper;
 import com.gretacvld.climb_jam_api.mappers.UserMapper;
@@ -18,6 +19,12 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    public List<UserDTO> getAllUsersRoleUser() {
+        return userRepository.findByRole(Role.USER).stream()
+                .map(UserMapper::toDTO)
+                .collect(Collectors.toList());
+    }
 
     public List<UserDTO> getAllUsers() {
         return userRepository.findAll().stream()
