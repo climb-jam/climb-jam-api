@@ -10,6 +10,7 @@ import com.gretacvld.climb_jam_api.exceptions.AscentNotFoundException;
 import com.gretacvld.climb_jam_api.exceptions.RouteNotFoundException;
 import com.gretacvld.climb_jam_api.exceptions.SessionNotFoundException;
 import com.gretacvld.climb_jam_api.exceptions.UserNotFoundException;
+import com.gretacvld.climb_jam_api.helpers.Utils;
 import com.gretacvld.climb_jam_api.mappers.AscentMapper;
 import com.gretacvld.climb_jam_api.mappers.SessionMapper;
 import com.gretacvld.climb_jam_api.repositories.AscentRepository;
@@ -42,6 +43,8 @@ public class AscentService {
     private RouteRepository routeRepository;
     @Autowired
     private SessionRepository sessionRepository;
+    @Autowired
+    private Utils utils;
 
     @Autowired
     private SessionService sessionService;
@@ -77,10 +80,8 @@ public class AscentService {
     public AscentDTO create(AscentDTO dto) {
 
         //dto n'a pas de user et n'a pas de session
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        User user = userRepository.findByEmail(username)
-                .orElseThrow(() -> new UserNotFoundException("Utilisateur introuvable"));
+
+        User user = utils.getCurrentUser();
         Route route = routeRepository.findById(dto.getRoute().getId())
                 .orElseThrow(() -> new RouteNotFoundException("Voie introuvable"));
 
