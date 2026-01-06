@@ -12,7 +12,6 @@ public class FavoriteCragDTO {
 
     private Long id;
 
-    @NotNull(message = "L'utilisateur est obligatoire.")
     private UserDTO user;
 
     @NotNull(message = "Le site d'escalade est obligatoire.")

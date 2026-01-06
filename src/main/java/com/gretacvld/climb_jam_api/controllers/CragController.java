@@ -37,8 +37,8 @@ public class CragController {
         return cragService.getCragByCoordinates(lat, lon).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/search/name/{name}") // ex: /search/name/viaduc
-    public ResponseEntity<List<CragDTO>> getCragsByName(@PathVariable String name) {
+    @GetMapping(value = "/search", params = "name")
+    public ResponseEntity<List<CragDTO>> getCragsByName(@RequestParam String name) {
         return ResponseEntity.ok(cragService.getCragsByName(name));
     }
 

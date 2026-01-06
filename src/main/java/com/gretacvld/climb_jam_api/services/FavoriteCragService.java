@@ -12,6 +12,8 @@ import com.gretacvld.climb_jam_api.repositories.CragRepository;
 import com.gretacvld.climb_jam_api.repositories.FavoriteCragRepository;
 import com.gretacvld.climb_jam_api.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -45,7 +47,9 @@ public class FavoriteCragService {
     }
 
     public FavoriteCragDTO create(FavoriteCragDTO dto) {
-        User user = userRepository.findById(dto.getUser().getId())
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        User user = userRepository.findByEmail(username)
                 .orElseThrow(() -> new UserNotFoundException("Utilisateur introuvable"));
         Crag crag = cragRepository.findById(dto.getCrag().getId())
                 .orElseThrow(() -> new CragNotFoundException("Site d'escalade introuvable"));
