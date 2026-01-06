@@ -2,6 +2,7 @@ package com.gretacvld.climb_jam_api.security;
 
 import com.gretacvld.climb_jam_api.services.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -29,6 +30,9 @@ public class SecurityConfig {
     @Autowired
     private CustomUserDetailsService userDetailsService;
 
+    @Value("#{'${app.cors.allowed-origins}'.split(',')}")
+    private List<String> allowedOrigins;
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -41,13 +45,9 @@ public class SecurityConfig {
                         authorizeRequests
                                 .requestMatchers("/auth/**").permitAll()
                                 .requestMatchers("/admin/**").hasRole("ADMIN")
-                                .requestMatchers("/ascents/**").hasAnyRole("USER","ADMIN")
-                                .requestMatchers("/crags/**").hasAnyRole("USER","ADMIN")
-                                .requestMatchers("/favorites/**").hasAnyRole("USER","ADMIN")
-                                .requestMatchers("/profiles/**").hasAnyRole("USER","ADMIN")
-                                .requestMatchers("/routes/**").hasAnyRole("USER","ADMIN")
-                                .requestMatchers("/sessions/**").hasAnyRole("USER","ADMIN")
-                                .requestMatchers("/users/**").hasAnyRole("USER","ADMIN")
+                                .requestMatchers("/ascents/**", "/crags/**", "/favorites/**",
+                                                "/profiles/**", "/routes/**", "/sessions/**", "/users/**")
+                                                .hasAnyRole("USER","ADMIN")
                                 .requestMatchers(   "/swagger-ui/**",
                                         "/v3/api-docs/**",
                                         "/swagger-resources/**",
@@ -74,7 +74,11 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:5173"));
+
+  
+
+        configuration.setAllowedOrigins(allowedOrigins);
+
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH", "HEAD", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("Authorization", "Cache-Control", "Content-Type"));
         configuration.setAllowCredentials(true);

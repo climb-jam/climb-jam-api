@@ -141,7 +141,104 @@ INSERT INTO route (id, crag_id, name, grade, height, incline_type, anchor_type, 
 (14, 26, 'Carnage Facile', '7c', 5, 'dévers', NULL, NULL, NULL, 'Bloc Mythique'),
 (15, 30, 'Les Ayes Verticales', '6a', 20, 'mur vertical', '2 points chaînés', 'plaquettes', 6, 'Pilier'),
 (16, 27, 'Diplodocus Rex', '7a+', 22, 'dalle technique', '2 points chaînés', 'plaquettes', 9, 'Face Est'),
-(17, 18, 'Seynes Extrême', '8a', 28, 'mur raide', '2 points chaînés', 'plaquettes', 12, 'Secteur Dur');
+(17, 18, 'Seynes Extrême', '8a', 28, 'mur raide', '2 points chaînés', 'plaquettes', 12, 'Secteur Dur'),
+-- ADDITIONAL ROUTES --
+-- Crag 2
+(18, 2, 'Arête du Corbeau', '5c', 22, 'arête', '2 points chaînés', 'plaquettes', 7, 'Face Sud'),
+(19, 2, 'Granite Noir', '6a', 25, 'mur vertical', '2 points chaînés', 'plaquettes', 8, 'Pilier Central'),
+
+-- Crag 4
+(20, 4, 'La Traversée Rouge', '6b', 30, 'mur raide', '2 points chaînés', 'plaquettes', 10, 'Secteur Est'),
+(21, 4, 'Corbière Directe', '7a', 32, 'dévers', '2 points chaînés', 'plaquettes', 11, 'Grand Mur'),
+
+-- Crag 5
+(22, 5, 'Gneiss Classique', '5c', 25, 'mur vertical', '2 points chaînés', 'plaquettes', 8, 'Secteur Bas'),
+(23, 5, 'Coupeau Technique', '6a+', 28, 'dalle', '2 points chaînés', 'plaquettes', 9, 'Secteur Dalle'),
+
+-- Crag 6 (complément)
+(24, 6, 'La Rampe Claire', '5b', 20, 'dalle', '2 points chaînés', 'plaquettes', 6, 'Secteur Droit'),
+
+-- Crag 7 (complément)
+(25, 7, 'Butineuse', '6a+', 24, 'mur vertical', '2 points chaînés', 'plaquettes', 9, 'Secteur Central'),
+
+-- Crag 8 (complément)
+(26, 8, 'Tour de Force', '6c', 28, 'mur raide', '2 points chaînés', 'plaquettes', 10, 'Face Ouest'),
+
+-- Crag 9 (complément)
+(27, 9, 'Chavants Easy', '4c', 18, 'mur', '2 points chaînés', 'plaquettes', 5, 'Secteur Débutant'),
+
+-- Crag 10 (complément)
+(28, 10, 'Balme Fine', '5c', 22, 'mur vertical', '2 points chaînés', 'plaquettes', 7, 'Secteur Gauche'),
+
+-- Crag 12
+(29, 12, 'Malsaire Classique', '6a', 26, 'mur raide', '2 points chaînés', 'plaquettes', 9, 'Secteur Central'),
+(30, 12, 'Le Surplomb Caché', '7b', 30, 'surplomb', '2 points chaînés', 'plaquettes', 11, 'Secteur Dur'),
+
+-- Crag 13 (complément)
+(31, 13, 'Cube Technique', '6c', 5, 'dévers', NULL, NULL, NULL, 'Bloc Annexe'),
+
+-- Crag 14
+(32, 14, 'Remigny Blanc', '5b', 22, 'mur', '2 points chaînés', 'plaquettes', 7, 'Secteur Nord'),
+(33, 14, 'Le Mur Oublié', '6c', 27, 'mur raide', '2 points chaînés', 'plaquettes', 9, 'Secteur Est'),
+
+-- Crag 15
+(34, 15, 'Madeleine Cool', '5a', 20, 'mur', '2 points chaînés', 'plaquettes', 6, 'Secteur Col'),
+(35, 15, 'Vent du Col', '6b', 24, 'mur vertical', '2 points chaînés', 'plaquettes', 8, 'Face Sud'),
+
+-- Crag 16
+(36, 16, 'Alpinodrome Facile', '5c', 18, 'mur', '2 points chaînés', 'plaquettes', 6, 'Mur Gauche'),
+(37, 16, 'La Traversante', '7a', 22, 'surplomb', '2 points chaînés', 'plaquettes', 9, 'Mur Central'),
+
+-- Crag 17
+(38, 17, 'La Duchère Verte', '6a', 25, 'mur', '2 points chaînés', 'plaquettes', 8, 'Secteur Forêt'),
+(39, 17, 'Gneiss Express', '7b', 30, 'mur raide', '2 points chaînés', 'plaquettes', 11, 'Grand Mur'),
+
+-- Crag 18 (complément)
+(40, 18, 'Seynes Classique', '6c', 24, 'mur', '2 points chaînés', 'plaquettes', 8, 'Secteur Central'),
+
+-- Crag 19
+(41, 19, 'Médonnet Bloc', '7a', 6, 'toit', NULL, NULL, NULL, 'Bloc Principal'),
+(42, 19, 'Granit Fin', '6c', 7, 'dévers', NULL, NULL, NULL, 'Bloc Annexe'),
+
+-- Crag 20
+(43, 20, 'Anthon Vertical', '6b', 28, 'mur vertical', '2 points chaînés', 'plaquettes', 9, 'Secteur Sud'),
+(44, 20, 'Anthon Dévers', '7c', 30, 'dévers', '2 points chaînés', 'plaquettes', 11, 'Secteur Dur'),
+
+-- Crag 21
+(45, 21, 'Écureuil Matinal', '5c', 22, 'mur', '2 points chaînés', 'plaquettes', 7, 'Secteur Est'),
+(46, 21, 'Noisette', '6b+', 26, 'mur raide', '2 points chaînés', 'plaquettes', 9, 'Secteur Central'),
+
+-- Crag 22
+(47, 22, 'Chaos Classique', '5b', 20, 'dalle', '2 points chaînés', 'plaquettes', 6, 'Secteur Bas'),
+
+-- Crag 23
+(48, 23, 'Valflaunès Sud', '5c', 25, 'mur', '2 points chaînés', 'plaquettes', 8, 'Face Sud'),
+(49, 23, 'Calcaire Fin', '6b', 28, 'mur raide', '2 points chaînés', 'plaquettes', 9, 'Pilier'),
+
+-- Crag 24
+(50, 24, 'Reine Blanche', '6a', 6, 'dalle', NULL, NULL, NULL, 'Bloc Central'),
+(51, 24, 'Grès Royal', '7b', 7, 'toit', NULL, NULL, NULL, 'Bloc Est'),
+
+-- Crag 25
+(52, 25, 'Olima Direct', '6a+', 22, 'mur', '2 points chaînés', 'plaquettes', 7, 'Secteur Central'),
+(53, 25, 'Le Grès Fin', '7a', 25, 'mur raide', '2 points chaînés', 'plaquettes', 9, 'Face Ouest'),
+
+-- Crag 26
+(54, 26, 'Heidenkopf Classique', '6b', 24, 'mur', '2 points chaînés', 'plaquettes', 8, 'Secteur Est'),
+
+-- Crag 27
+(55, 27, 'Bleau Technique', '7a', 5, 'dalle', NULL, NULL, NULL, 'Bloc Nord'),
+
+-- Crag 28
+(56, 28, 'Souris Agile', '5c', 6, 'dalle', NULL, NULL, NULL, 'Bloc Central'),
+(57, 28, 'Grès Fin', '6b', 7, 'dévers', NULL, NULL, NULL, 'Bloc Sud'),
+
+-- Crag 29
+(58, 29, 'Diplodocus Junior', '4c', 5, 'mur', NULL, NULL, NULL, 'Bloc Enfant'),
+(59, 29, 'Queue du Dino', '6a', 6, 'dévers', NULL, NULL, NULL, 'Bloc Est'),
+
+-- Crag 30
+(60, 30, 'Granite d’Altitude', '6c', 25, 'mur vertical', '2 points chaînés', 'plaquettes', 8, 'Secteur Central');
 
 
 -- CLIMBING TYPES --
@@ -162,7 +259,52 @@ INSERT INTO route_climbing_types (route_id, climbing_types) VALUES
 (14, 'BLOC'),
 (15, 'VOIE'),
 (16, 'VOIE'),
-(17, 'VOIE');
+(17, 'VOIE'),
+-- ADDITIONAL CLIMBING TYPES --
+(18, 'VOIE'),
+(19, 'VOIE'),
+(20, 'VOIE'),
+(21, 'VOIE'),
+(22, 'VOIE'),
+(23, 'VOIE'),
+(24, 'VOIE'),
+(25, 'VOIE'),
+(26, 'VOIE'),
+(27, 'VOIE'),
+(28, 'VOIE'),
+(29, 'VOIE'),
+(30, 'VOIE'),
+(31, 'BLOC'),
+(32, 'VOIE'),
+(33, 'VOIE'),
+(34, 'VOIE'),
+(35, 'VOIE'),
+(36, 'VOIE'),
+(37, 'VOIE'),
+(38, 'VOIE'),
+(39, 'VOIE'),
+(40, 'VOIE'),
+(41, 'BLOC'),
+(42, 'BLOC'),
+(43, 'VOIE'),
+(44, 'VOIE'),
+(45, 'VOIE'),
+(46, 'VOIE'),
+(47, 'VOIE'),
+(48, 'VOIE'),
+(49, 'VOIE'),
+(50, 'BLOC'),
+(51, 'BLOC'),
+(52, 'VOIE'),
+(53, 'VOIE'),
+(54, 'VOIE'),
+(55, 'BLOC'),
+(56, 'BLOC'),
+(57, 'BLOC'),
+(58, 'BLOC'),
+(59, 'BLOC'),
+(60, 'VOIE');
+
 
 -- SESSIONS --
 INSERT INTO session (id, user_id, crag_id, date) VALUES
