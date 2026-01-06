@@ -10,6 +10,7 @@ public class CragMapper {
         if (crag == null) return null;
         return new CragDTO(
                 crag.getId(),
+                false,
                 crag.getName(),
                 crag.getCity(),
                 crag.getPostalCode(),

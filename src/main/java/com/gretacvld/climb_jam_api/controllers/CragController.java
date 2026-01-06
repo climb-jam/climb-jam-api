@@ -29,7 +29,7 @@ public class CragController {
 
     @GetMapping
     public ResponseEntity<List<CragDTO>> getAllCrags() {
-        return ResponseEntity.ok(cragService.getAllCrags());
+        return ResponseEntity.ok(cragService.getCragWithFav());
     }
 
     @GetMapping("/search/gps") // ex: /search/gps?lat=48.678913&lon=2.152492
@@ -37,8 +37,8 @@ public class CragController {
         return cragService.getCragByCoordinates(lat, lon).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/search/name/{name}") // ex: /search/name/viaduc
-    public ResponseEntity<List<CragDTO>> getCragsByName(@PathVariable String name) {
+    @GetMapping(value = "/search", params = "name")
+    public ResponseEntity<List<CragDTO>> getCragsByName(@RequestParam String name) {
         return ResponseEntity.ok(cragService.getCragsByName(name));
     }
 
