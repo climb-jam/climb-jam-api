@@ -95,7 +95,7 @@ INSERT INTO crag_orientations (crag_id, orientations) VALUES
 (29, 'NORD'), (29, 'EST'), (29, 'SUD'),
 (30, 'SUD');
 
--- ADMIN + 10 USERS --
+-- ADMIN + USER --
 INSERT INTO user (id, email, password, username, role) VALUES
 (1, 'climbjam@example.com', '$2a$12$R.QBr1uwWlhNU1LpSL7c3OBSPJw95gL/eAuZGTsTMoCCherO0WC5y', 'ClimbJAM', 'ADMIN'),
 (2, 'alice@example.com', '$2a$12$R.QBr1uwWlhNU1LpSL7c3OBSPJw95gL/eAuZGTsTMoCCherO0WC5y', 'alice', 'USER');
@@ -103,16 +103,7 @@ INSERT INTO user (id, email, password, username, role) VALUES
 -- PROFILES --
 INSERT INTO profile (user_id, avatar_url, city, postal_code) VALUES
 (1, NULL, 'Tours', '37000'),
-(2, NULL, 'Lille', '59000'),
-(3, NULL, 'Lyon', '69001'),
-(4, NULL, 'Marseille', '13001'),
-(5, NULL, 'Montpellier', '34000'),
-(6, NULL, 'Bordeaux', '33000'),
-(7, NULL, 'Nice', '06000'),
-(8, NULL, 'Nantes', '44000'),
-(9, NULL, 'Strasbourg', '67000'),
-(10, NULL, 'Toulouse', '31000'),
-(11, NULL, 'Grenoble', '38000');
+(2, NULL, 'Lille', '59000');
 
 -- ROUTES --
 INSERT INTO route (id, crag_id, name, grade, height, incline_type, anchor_type, bolt_type, bolt_count, sector) VALUES
@@ -146,26 +137,26 @@ INSERT INTO route (id, crag_id, name, grade, height, incline_type, anchor_type, 
 (22, 5, 'Gneiss Classique', '5c', 25, 'mur vertical', '2 points chaînés', 'plaquettes', 8, 'Secteur Bas'),
 (23, 5, 'Coupeau Technique', '6a+', 28, 'dalle', '2 points chaînés', 'plaquettes', 9, 'Secteur Dalle'),
 
--- Crag 6 (complément)
+-- Crag 6
 (24, 6, 'La Rampe Claire', '5b', 20, 'dalle', '2 points chaînés', 'plaquettes', 6, 'Secteur Droit'),
 
--- Crag 7 (complément)
+-- Crag 7
 (25, 7, 'Butineuse', '6a+', 24, 'mur vertical', '2 points chaînés', 'plaquettes', 9, 'Secteur Central'),
 
--- Crag 8 (complément)
+-- Crag 8
 (26, 8, 'Tour de Force', '6c', 28, 'mur raide', '2 points chaînés', 'plaquettes', 10, 'Face Ouest'),
 
--- Crag 9 (complément)
+-- Crag 9
 (27, 9, 'Chavants Easy', '4c', 18, 'mur', '2 points chaînés', 'plaquettes', 5, 'Secteur Débutant'),
 
--- Crag 10 (complément)
+-- Crag 10
 (28, 10, 'Balme Fine', '5c', 22, 'mur vertical', '2 points chaînés', 'plaquettes', 7, 'Secteur Gauche'),
 
 -- Crag 12
 (29, 12, 'Malsaire Classique', '6a', 26, 'mur raide', '2 points chaînés', 'plaquettes', 9, 'Secteur Central'),
 (30, 12, 'Le Surplomb Caché', '7b', 30, 'surplomb', '2 points chaînés', 'plaquettes', 11, 'Secteur Dur'),
 
--- Crag 13 (complément)
+-- Crag 13
 (31, 13, 'Cube Technique', '6c', 5, 'dévers', NULL, NULL, NULL, 'Bloc Annexe'),
 
 -- Crag 14
@@ -184,7 +175,7 @@ INSERT INTO route (id, crag_id, name, grade, height, incline_type, anchor_type, 
 (38, 17, 'La Duchère Verte', '6a', 25, 'mur', '2 points chaînés', 'plaquettes', 8, 'Secteur Forêt'),
 (39, 17, 'Gneiss Express', '7b', 30, 'mur raide', '2 points chaînés', 'plaquettes', 11, 'Grand Mur'),
 
--- Crag 18 (complément)
+-- Crag 18
 (40, 18, 'Seynes Classique', '6c', 24, 'mur', '2 points chaînés', 'plaquettes', 8, 'Secteur Central'),
 
 -- Crag 19
@@ -299,57 +290,29 @@ INSERT INTO route_climbing_types (route_id, climbing_types) VALUES
 
 -- SESSIONS --
 INSERT INTO session (id, user_id, crag_id, date) VALUES
-(1, 2, 1,  '2025-04-12'), -- Alice au Viaduc des Fauvettes
-(2, 3, 3,  '2025-05-03'), -- Ben aux Gaillands
-(3, 4, 11, '2025-06-15'), -- Chloé au Virage
-(4, 5, 6,  '2025-07-02'), -- Daniel à La Garotte
-(5, 2, 1, '2025-01-15'),
-(6, 2, 1, '2025-03-10'),
-(7, 2, 3, '2025-06-05'),
-(8, 2, 3, '2025-09-20');
+(1, 2, 1,  '2025-04-12'),
+(2, 2, 1, '2025-01-15'),
+(3, 2, 1, '2025-03-10'),
+(4, 2, 3, '2025-06-05'),
+(5, 2, 3, '2025-09-20');
 
 -- ASCENTS --
--- Alice (user_id=2)
 INSERT INTO ascent (user_id, route_id, session_id, date, style, tries, comment) VALUES
 (2, 1, 1, '2025-04-12', 'A_VUE', 1, 'Belle dalle technique, bon feeling'),
 (2, 2, 1, '2025-04-12', 'ECHEC', 2, 'Tombée au dernier mouv, à retravailler');
 
--- Ben (user_id=3)
-INSERT INTO ascent (user_id, route_id, session_id, date, style, tries, comment) VALUES
-(3, 3, 2, '2025-05-03', 'FLASH', 1, 'Parfait pour s’échauffer'),
-(3, 4, 2, '2025-05-03', 'REDPOINT', 3, 'Dur au départ mais passé après travail');
-
--- Chloé (user_id=4)
-INSERT INTO ascent (user_id, route_id, session_id, date, style, tries, comment) VALUES
-(4, 5, 3, '2025-06-15', 'TRAVAIL', 4, 'Magnifique surplomb, pas encore enchaîné'),
-(4, 6, 3, '2025-06-15', 'ECHEC', 2, 'Très physique, encore hors de portée');
-
--- Daniel (user_id=5)
-INSERT INTO ascent (user_id, route_id, session_id, date, style, tries, comment) VALUES
-(5, 7, 4, '2025-07-02', 'A_VUE', 1, 'Bonne fluidité, belles prises'),
-(5, 3, 4, '2025-07-02', 'REDPOINT', 2, 'Un peu dur au crux mais réussi'),
-(5, 4, 4, '2025-07-02', 'FLASH', 1, 'Facile grâce à une bonne lecture');
-
 -- ASCENTS supplémentaires pour Alice
 INSERT INTO ascent (user_id, route_id, session_id, date, style, tries, comment) VALUES
 -- Session janvier
-(2, 1, 5, '2025-01-15', 'A_VUE', 1, 'Bonne lecture de la dalle'),
-(2, 2, 5, '2025-01-15', 'ECHEC', 2, 'Mouvements compliqués'),
-
--- Session mars
-(2, 1, 6, '2025-03-10', 'FLASH', 1, 'Plus facile avec l’échauffement'),
-(2, 2, 6, '2025-03-10', 'A_VUE', 1, 'Passé à vue après révision'),
-
--- Session juin
-(2, 3, 7, '2025-06-05', 'REDPOINT', 2, NULL),
-(2, 4, 7, '2025-06-05', 'FLASH', 1, 'Dalle grisante'),
-
--- Session septembre
-(2, 3, 8, '2025-09-20', 'A_VUE', 1, NULL),
-(2, 4, 8, '2025-09-20', 'REDPOINT', 3, 'Travail sur la lecture de mouvements');
+(2, 1, 2, '2025-01-15', 'A_VUE', 1, 'Bonne lecture de la dalle'),
+(2, 2, 2, '2025-01-15', 'ECHEC', 2, 'Mouvements compliqués'),
+(2, 1, 3, '2025-03-10', 'FLASH', 1, 'Plus facile avec l’échauffement'),
+(2, 2, 3, '2025-03-10', 'A_VUE', 1, 'Passé à vue après révision'),
+(2, 3, 4, '2025-06-05', 'REDPOINT', 2, NULL),
+(2, 4, 4, '2025-06-05', 'FLASH', 1, 'Dalle grisante'),
+(2, 3, 5, '2025-09-20', 'A_VUE', 1, NULL),
+(2, 4, 5, '2025-09-20', 'REDPOINT', 3, 'Travail sur la lecture de mouvements');
 
 -- FAVORITE CRAGS --
-INSERT INTO favorite_crag (id, user_id, crag_id) VALUES (1, 2, 1);   -- Alice → Viaduc des Fauvettes
-INSERT INTO favorite_crag (id, user_id, crag_id) VALUES (2, 2, 3);   -- Alice → Les Gaillands
-INSERT INTO favorite_crag (id, user_id, crag_id) VALUES (3, 3, 3);   -- Ben → Les Gaillands
-INSERT INTO favorite_crag (id, user_id, crag_id) VALUES (4, 3, 11);  -- Ben → Le Virage
+INSERT INTO favorite_crag (id, user_id, crag_id) VALUES (1, 2, 1);
+INSERT INTO favorite_crag (id, user_id, crag_id) VALUES (2, 2, 3);
