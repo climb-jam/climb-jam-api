@@ -12,7 +12,9 @@ import com.gretacvld.climb_jam_api.repositories.CragRepository;
 import com.gretacvld.climb_jam_api.repositories.FavoriteCragRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -61,6 +63,34 @@ public class CragService {
                 .map(CragMapper::toDTO)
                 .collect(Collectors.toList());
     }
+    public Page<CragDTO> getAllPaginated(Pageable pageable) {
+        return cragRepository.findAll(pageable)
+                .map(CragDTO::new); // Utilise le constructeur CragDTO(Crag)
+    }
+    public Page<CragDTO> getCragsByNamePaginated(String name, Pageable pageable) {
+        return cragRepository.findByNameContainingIgnoreCase(name, pageable)
+                .map(this::toDTO); // transforme chaque Crag en CragDTO
+    }
+    private CragDTO toDTO(Crag crag) {
+        CragDTO dto = new CragDTO();
+        dto.setId(crag.getId());
+        dto.setName(crag.getName());
+        dto.setCity(crag.getCity());
+        dto.setPostalCode(crag.getPostalCode());
+        dto.setLat(crag.getLat());
+        dto.setLon(crag.getLon());
+        dto.setAltitude(crag.getAltitude());
+        dto.setRockType(crag.getRockType());
+        dto.setMinGrade(crag.getMinGrade());
+        dto.setMaxGrade(crag.getMaxGrade());
+        dto.setExposure(crag.getExposure());
+        dto.setFavorableSeasons(crag.getFavorableSeasons());
+        dto.setOrientations(crag.getOrientations());
+        dto.setPhotoUrl(crag.getPhotoUrl());
+        dto.setThumbnailUrl(crag.getThumbnailUrl());
+        return dto;
+    }
+
 
     public Optional<CragDTO> getCragByCoordinates(Double lat, Double lon) {
         return cragRepository.findByLatAndLon(lat, lon)
