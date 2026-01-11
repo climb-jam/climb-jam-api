@@ -3,7 +3,7 @@ package com.gretacvld.climb_jam_api.dtos;
 import com.gretacvld.climb_jam_api.enums.Orientation;
 import com.gretacvld.climb_jam_api.enums.Season;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,7 +24,10 @@ public class CragDTO {
     private String city;
 
     @NotBlank(message = "Le code postal est obligatoire.")
-    @Size(min = 5, max = 5, message = "Le code postal doit contenir 5 caractères.")
+    @Pattern(
+            regexp = "^[0-9]{5}$",
+            message = "Le code postal doit contenir 5 chiffres."
+    )
     private String postalCode;
 
     private Double lat;

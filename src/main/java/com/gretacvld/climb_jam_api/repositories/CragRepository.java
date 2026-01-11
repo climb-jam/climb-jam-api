@@ -2,7 +2,6 @@ package com.gretacvld.climb_jam_api.repositories;
 
 import com.gretacvld.climb_jam_api.entities.Crag;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import java.util.List;

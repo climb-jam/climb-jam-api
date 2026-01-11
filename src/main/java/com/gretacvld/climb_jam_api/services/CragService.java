@@ -1,7 +1,6 @@
 package com.gretacvld.climb_jam_api.services;
 
 import com.gretacvld.climb_jam_api.dtos.CragDTO;
-import com.gretacvld.climb_jam_api.dtos.FavoriteCragDTO;
 import com.gretacvld.climb_jam_api.entities.Crag;
 import com.gretacvld.climb_jam_api.entities.FavoriteCrag;
 import com.gretacvld.climb_jam_api.entities.User;
@@ -14,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
