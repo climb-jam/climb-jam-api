@@ -1,36 +1,24 @@
 package com.gretacvld.climb_jam_api.services;
 
 import com.gretacvld.climb_jam_api.dtos.AscentDTO;
-import com.gretacvld.climb_jam_api.dtos.SessionDTO;
 import com.gretacvld.climb_jam_api.entities.Ascent;
 import com.gretacvld.climb_jam_api.entities.Route;
 import com.gretacvld.climb_jam_api.entities.Session;
 import com.gretacvld.climb_jam_api.entities.User;
 import com.gretacvld.climb_jam_api.exceptions.AscentNotFoundException;
 import com.gretacvld.climb_jam_api.exceptions.RouteNotFoundException;
-import com.gretacvld.climb_jam_api.exceptions.SessionNotFoundException;
-import com.gretacvld.climb_jam_api.exceptions.UserNotFoundException;
 import com.gretacvld.climb_jam_api.helpers.Utils;
 import com.gretacvld.climb_jam_api.mappers.AscentMapper;
-import com.gretacvld.climb_jam_api.mappers.SessionMapper;
 import com.gretacvld.climb_jam_api.repositories.AscentRepository;
 import com.gretacvld.climb_jam_api.repositories.RouteRepository;
 import com.gretacvld.climb_jam_api.repositories.SessionRepository;
-import com.gretacvld.climb_jam_api.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import com.gretacvld.climb_jam_api.services.SessionService;
 
 
-import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
-import static java.time.LocalTime.now;
 
 @Service
 public class AscentService {
@@ -38,16 +26,19 @@ public class AscentService {
     @Autowired
     private AscentRepository ascentRepository;
     @Autowired
-    private UserRepository userRepository;
-    @Autowired
     private RouteRepository routeRepository;
     @Autowired
     private SessionRepository sessionRepository;
     @Autowired
     private Utils utils;
 
-    @Autowired
-    private SessionService sessionService;
+    public List<AscentDTO> getMyAscents() {
+        User user = utils.getCurrentUser();
+        return ascentRepository.findByUserIdOrderByDateDesc(user.getId())
+                .stream()
+                .map(AscentMapper::toDTO)
+                .collect(Collectors.toList());
+    }
 
     public List<AscentDTO> getAllAscents() {
         return ascentRepository.findAll().stream()
@@ -79,13 +70,11 @@ public class AscentService {
 
     public AscentDTO create(AscentDTO dto) {
 
-        //dto n'a pas de user et n'a pas de session
-
         User user = utils.getCurrentUser();
         Route route = routeRepository.findById(dto.getRoute().getId())
                 .orElseThrow(() -> new RouteNotFoundException("Voie introuvable"));
 
-        Session session = sessionRepository.findByDate(dto.getDate());
+        Session session = sessionRepository.findByDateAndUserId(dto.getDate(), user.getId());
         if (session == null){
                     Session newSession = new Session();
                     newSession.setUser(user);

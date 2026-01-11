@@ -8,6 +8,7 @@ import com.gretacvld.climb_jam_api.services.ProfileService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
@@ -35,11 +36,13 @@ public class ProfileController {
         return profileService.update(user.getId(), dto);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/user/{userId}")
     public ResponseEntity<ProfileDTO> getProfileByUserId(@PathVariable Long userId) {
         return profileService.getProfileByUserId(userId).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/user/{userId}")
     public ResponseEntity<ProfileDTO> updateProfileByUserId(@PathVariable Long userId, @Valid @RequestBody ProfileDTO dto) {
         return ResponseEntity.ok(profileService.update(userId, dto));

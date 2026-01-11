@@ -1,14 +1,12 @@
 package com.gretacvld.climb_jam_api.controllers;
 
 import com.gretacvld.climb_jam_api.dtos.AscentDTO;
-import com.gretacvld.climb_jam_api.entities.CustomUserDetails;
 import com.gretacvld.climb_jam_api.services.AscentService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,10 +18,9 @@ public class AscentController {
     @Autowired
     private AscentService ascentService;
 
-    @GetMapping("/me") // Shows ascents of the connected user
-    public ResponseEntity<List<AscentDTO>> getMyAscents(@AuthenticationPrincipal CustomUserDetails userDetails) {
-        Long userId = userDetails.getId();
-        return ResponseEntity.ok(ascentService.getAscentsByUserId(userId));
+    @GetMapping("/me")
+    public ResponseEntity<List<AscentDTO>> getMyAscents() {
+        return ResponseEntity.ok(ascentService.getMyAscents());
     }
 
     @PostMapping
@@ -31,6 +28,7 @@ public class AscentController {
         return ResponseEntity.status(HttpStatus.CREATED).body(ascentService.create(dto));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
     public ResponseEntity<List<AscentDTO>> getAllAscents() {
         return ResponseEntity.ok(ascentService.getAllAscents());
@@ -41,6 +39,7 @@ public class AscentController {
         return ascentService.getAscentById(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<AscentDTO>> getAscentsByUser(@PathVariable Long userId) {
         return ResponseEntity.ok(ascentService.getAscentsByUserId(userId));
