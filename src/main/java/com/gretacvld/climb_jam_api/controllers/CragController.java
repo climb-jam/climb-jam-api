@@ -6,6 +6,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,6 +18,7 @@ public class CragController {
     @Autowired
     private CragService cragService;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<CragDTO> createCrag(@Valid @RequestBody CragDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(cragService.create(dto));
@@ -47,11 +49,13 @@ public class CragController {
         return ResponseEntity.ok(cragService.getCragsByCityOrPostalCode(city, postalCode));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<CragDTO> update(@PathVariable Long id, @Valid @RequestBody CragDTO dto) {
         return ResponseEntity.ok(cragService.update(id, dto));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         cragService.delete(id);

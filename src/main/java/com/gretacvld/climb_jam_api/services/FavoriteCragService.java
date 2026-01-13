@@ -6,14 +6,11 @@ import com.gretacvld.climb_jam_api.entities.FavoriteCrag;
 import com.gretacvld.climb_jam_api.entities.User;
 import com.gretacvld.climb_jam_api.exceptions.CragNotFoundException;
 import com.gretacvld.climb_jam_api.exceptions.FavoriteCragNotFoundException;
-import com.gretacvld.climb_jam_api.exceptions.UserNotFoundException;
+import com.gretacvld.climb_jam_api.helpers.Utils;
 import com.gretacvld.climb_jam_api.mappers.FavoriteCragMapper;
 import com.gretacvld.climb_jam_api.repositories.CragRepository;
 import com.gretacvld.climb_jam_api.repositories.FavoriteCragRepository;
-import com.gretacvld.climb_jam_api.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,9 +23,17 @@ public class FavoriteCragService {
     @Autowired
     private FavoriteCragRepository favoriteCragRepository;
     @Autowired
-    private UserRepository userRepository;
-    @Autowired
     private CragRepository cragRepository;
+    @Autowired
+    private Utils utils;
+
+    public List<FavoriteCragDTO> getMyFavorites() {
+        User user = utils.getCurrentUser();
+        return favoriteCragRepository.findByUserId(user.getId())
+                .stream()
+                .map(FavoriteCragMapper::toDTO)
+                .collect(Collectors.toList());
+    }
 
     public List<FavoriteCragDTO> getAllFavoriteCrags() {
         return favoriteCragRepository.findAll().stream()
@@ -47,10 +52,7 @@ public class FavoriteCragService {
     }
 
     public FavoriteCragDTO create(FavoriteCragDTO dto) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        User user = userRepository.findByEmail(username)
-                .orElseThrow(() -> new UserNotFoundException("Utilisateur introuvable"));
+        User user = utils.getCurrentUser();
         Crag crag = cragRepository.findById(dto.getCrag().getId())
                 .orElseThrow(() -> new CragNotFoundException("Site d'escalade introuvable"));
         FavoriteCrag favorite = FavoriteCragMapper.toEntity(dto);

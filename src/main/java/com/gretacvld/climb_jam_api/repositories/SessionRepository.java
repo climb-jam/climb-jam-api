@@ -10,7 +10,7 @@ public interface SessionRepository extends JpaRepository<Session, Long> {
 
     List<Session> findByUserId(Long userId);
     List<Session> findByCragId(Long cragId);
-    Session findByDate(LocalDate date);
+    Session findByDateAndUserId(LocalDate date, Long userId);
 
     long countByUserId(Long userId);
 }

@@ -1,13 +1,12 @@
 package com.gretacvld.climb_jam_api.controllers;
 
 import com.gretacvld.climb_jam_api.dtos.SessionDTO;
-import com.gretacvld.climb_jam_api.entities.CustomUserDetails;
 import com.gretacvld.climb_jam_api.services.SessionService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,10 +18,9 @@ public class SessionController {
     @Autowired
     private SessionService sessionService;
 
-    @GetMapping("/me") // Shows sessions of the connected user
-    public ResponseEntity<List<SessionDTO>> getMySessions(@AuthenticationPrincipal CustomUserDetails userDetails) {
-        Long userId = userDetails.getId();
-        return ResponseEntity.ok(sessionService.getSessionsByUserId(userId));
+    @GetMapping("/me")
+    public ResponseEntity<List<SessionDTO>> getMySessions() {
+        return ResponseEntity.ok(sessionService.getMySessions());
     }
 
     @PostMapping
@@ -30,6 +28,7 @@ public class SessionController {
         return ResponseEntity.status(HttpStatus.CREATED).body(sessionService.create(dto));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
     public ResponseEntity<List<SessionDTO>> getAllSessions() {
         return ResponseEntity.ok(sessionService.getAllSessions());
@@ -40,6 +39,7 @@ public class SessionController {
         return sessionService.getSessionById(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<SessionDTO>> getSessionsByUser(@PathVariable Long userId) {
         return ResponseEntity.ok(sessionService.getSessionsByUserId(userId));

@@ -6,6 +6,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,6 +18,7 @@ public class RouteController {
     @Autowired
     private RouteService routeService;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<RouteDTO> createRoute(@Valid @RequestBody RouteDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(routeService.create(dto));
@@ -51,11 +53,13 @@ public class RouteController {
         return ResponseEntity.ok(routeService.getRoutesByCragCoordinates(lat, lon));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<RouteDTO> update(@PathVariable Long id, @Valid @RequestBody RouteDTO dto) {
         return ResponseEntity.ok(routeService.update(id, dto));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         routeService.delete(id);
