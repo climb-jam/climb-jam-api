@@ -4,6 +4,9 @@ import com.gretacvld.climb_jam_api.dtos.CragDTO;
 import com.gretacvld.climb_jam_api.services.CragService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -29,19 +32,29 @@ public class CragController {
         return cragService.getCragById(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<CragDTO>> getAllCrags() {
         return ResponseEntity.ok(cragService.getCragWithFav());
+    }
+
+    @GetMapping
+    public ResponseEntity<Page<CragDTO>> getAllCragsPaginate(
+            @PageableDefault(size = 6, sort = "name") Pageable pageable
+    ) {
+        return ResponseEntity.ok(cragService.getAllPaginated(pageable));
     }
 
     @GetMapping("/search/gps") // ex: /search/gps?lat=48.678913&lon=2.152492
     public ResponseEntity<CragDTO> getByCoordinates(@RequestParam Double lat, @RequestParam Double lon) {
         return cragService.getCragByCoordinates(lat, lon).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
-
     @GetMapping(value = "/search", params = "name")
-    public ResponseEntity<List<CragDTO>> getCragsByName(@RequestParam String name) {
-        return ResponseEntity.ok(cragService.getCragsByName(name));
+    public ResponseEntity<Page<CragDTO>> searchCragsByName(
+            @RequestParam String name,
+            @PageableDefault(size = 6, sort = "name") Pageable pageable
+    ) {
+        Page<CragDTO> crags = cragService.getCragsByNamePaginated(name, pageable);
+        return ResponseEntity.ok(crags);
     }
 
     @GetMapping("/search") // Different ways to call endpoint - ex : /search?city=saf OR /search?postalCode=21 OR /search?city=saf&postalCode=21
