@@ -29,9 +29,7 @@ public class FavoriteCragService {
     @Autowired
     private Utils utils;
 
-    /**
-     * Récupère les favoris de l'utilisateur connecté
-     */
+
     public List<CragDTO> getMyFavorites() {
         User user = utils.getCurrentUser();
 
@@ -41,9 +39,7 @@ public class FavoriteCragService {
                 .toList();
     }
 
-    /**
-     * Ajoute un crag aux favoris de l'utilisateur connecté
-     */
+
     public FavoriteCragDTO addFavorite(Long cragId) {
 
         User user = utils.getCurrentUser();
@@ -65,9 +61,7 @@ public class FavoriteCragService {
         );
     }
 
-    /**
-     * Supprime un crag des favoris de l'utilisateur connecté
-     */
+
     public void removeFavorite(Long cragId) {
 
         User user = utils.getCurrentUser();
@@ -82,9 +76,6 @@ public class FavoriteCragService {
         favoriteCragRepository.delete(favorite);
     }
 
-    /**
-     * Vérifie si un crag est dans les favoris de l'utilisateur connecté
-     */
     public boolean isFavorite(Long cragId) {
 
         User user = utils.getCurrentUser();

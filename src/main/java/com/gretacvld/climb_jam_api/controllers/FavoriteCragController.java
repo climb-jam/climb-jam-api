@@ -17,17 +17,12 @@ public class FavoriteCragController {
     @Autowired
     private FavoriteCragService favoriteCragService;
 
-    /**
-     * Récupère les favoris de l'utilisateur connecté
-     */
     @GetMapping
     public ResponseEntity<List<CragDTO>> getMyFavorites() {
         return ResponseEntity.ok(favoriteCragService.getMyFavorites());
     }
 
-    /**
-     * Ajoute un crag aux favoris
-     */
+
     @PostMapping("/{cragId}")
     public ResponseEntity<FavoriteCragDTO> addFavorite(
             @PathVariable Long cragId) {
@@ -37,9 +32,7 @@ public class FavoriteCragController {
                 .body(favoriteCragService.addFavorite(cragId));
     }
 
-    /**
-     * Supprime un crag des favoris
-     */
+
     @DeleteMapping("/{cragId}")
     public ResponseEntity<Void> removeFavorite(
             @PathVariable Long cragId) {
@@ -49,9 +42,7 @@ public class FavoriteCragController {
         return ResponseEntity.noContent().build();
     }
 
-    /**
-     * Vérifie si un crag est dans les favoris
-     */
+
     @GetMapping("/{cragId}/status")
     public ResponseEntity<Boolean> isFavorite(
             @PathVariable Long cragId) {
