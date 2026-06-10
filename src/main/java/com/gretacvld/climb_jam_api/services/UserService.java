@@ -4,9 +4,12 @@ import com.gretacvld.climb_jam_api.dtos.UserDTO;
 import com.gretacvld.climb_jam_api.entities.User;
 import com.gretacvld.climb_jam_api.enums.Role;
 import com.gretacvld.climb_jam_api.exceptions.UserNotFoundException;
+import com.gretacvld.climb_jam_api.helpers.Utils;
 import com.gretacvld.climb_jam_api.mappers.ProfileMapper;
 import com.gretacvld.climb_jam_api.mappers.UserMapper;
+import com.gretacvld.climb_jam_api.repositories.FavoriteCragRepository;
 import com.gretacvld.climb_jam_api.repositories.UserRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +22,20 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private final FavoriteCragRepository favoriteCragRepository;
+    @Autowired
+    private Utils utils;
+
+    public UserService(
+            UserRepository userRepository,
+            FavoriteCragRepository favoriteCragRepository,
+            Utils utils
+    ) {
+        this.userRepository = userRepository;
+        this.favoriteCragRepository = favoriteCragRepository;
+        this.utils = utils;
+    }
 
     public List<UserDTO> getAllUsersRoleUser() {
         return userRepository.findByRole(Role.USER).stream()
@@ -64,5 +81,12 @@ public class UserService {
             throw new UserNotFoundException("Utilisateur introuvable avec l'ID : " + id);
         }
         userRepository.deleteById(id);
+    }
+
+    @Transactional
+    public void deleteMyAccount() {
+        User user = utils.getCurrentUser();
+        favoriteCragRepository.deleteByUserId(user.getId());
+        userRepository.delete(user);
     }
 }

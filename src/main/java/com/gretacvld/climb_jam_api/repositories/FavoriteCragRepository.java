@@ -11,4 +11,5 @@ public interface FavoriteCragRepository extends JpaRepository<FavoriteCrag, Long
     void deleteByUserIdAndCragId(Long userId, Long cragId);
     Optional<FavoriteCrag> findByUserIdAndCragId(Long userId, Long cragId);
     List<FavoriteCrag> findByUserId(Long userId);
+    void deleteByUserId(Long userId);
 }
