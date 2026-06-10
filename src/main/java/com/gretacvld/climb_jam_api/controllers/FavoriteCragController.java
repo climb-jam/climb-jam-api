@@ -1,12 +1,11 @@
 package com.gretacvld.climb_jam_api.controllers;
 
+import com.gretacvld.climb_jam_api.dtos.CragDTO;
 import com.gretacvld.climb_jam_api.dtos.FavoriteCragDTO;
 import com.gretacvld.climb_jam_api.services.FavoriteCragService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,36 +17,47 @@ public class FavoriteCragController {
     @Autowired
     private FavoriteCragService favoriteCragService;
 
-    @GetMapping("/me")
-    public ResponseEntity<List<FavoriteCragDTO>> getMyFavorites() {
+    /**
+     * Récupère les favoris de l'utilisateur connecté
+     */
+    @GetMapping
+    public ResponseEntity<List<CragDTO>> getMyFavorites() {
         return ResponseEntity.ok(favoriteCragService.getMyFavorites());
     }
 
-    @PostMapping
-    public ResponseEntity<FavoriteCragDTO> createFavoriteCrag(@RequestBody @Valid FavoriteCragDTO dto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(favoriteCragService.create(dto));
+    /**
+     * Ajoute un crag aux favoris
+     */
+    @PostMapping("/{cragId}")
+    public ResponseEntity<FavoriteCragDTO> addFavorite(
+            @PathVariable Long cragId) {
+
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(favoriteCragService.addFavorite(cragId));
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
-    @GetMapping
-    public ResponseEntity<List<FavoriteCragDTO>> getAllFavoriteCrags() {
-        return ResponseEntity.ok(favoriteCragService.getAllFavoriteCrags());
-    }
+    /**
+     * Supprime un crag des favoris
+     */
+    @DeleteMapping("/{cragId}")
+    public ResponseEntity<Void> removeFavorite(
+            @PathVariable Long cragId) {
 
-    @GetMapping("/{id}")
-    public ResponseEntity<FavoriteCragDTO> getFavoriteCragById(@PathVariable Long id) {
-        return favoriteCragService.getFavoriteCragById(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
-    }
+        favoriteCragService.removeFavorite(cragId);
 
-    @PreAuthorize("hasRole('ADMIN')")
-    @GetMapping("/user/{userId}")
-    public ResponseEntity<List<FavoriteCragDTO>> getFavoriteCragsByUser(@PathVariable Long userId) {
-        return ResponseEntity.ok(favoriteCragService.getFavoriteCragsByUserId(userId));
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        favoriteCragService.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    /**
+     * Vérifie si un crag est dans les favoris
+     */
+    @GetMapping("/{cragId}/status")
+    public ResponseEntity<Boolean> isFavorite(
+            @PathVariable Long cragId) {
+
+        return ResponseEntity.ok(
+                favoriteCragService.isFavorite(cragId)
+        );
     }
 }
