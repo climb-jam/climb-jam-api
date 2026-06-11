@@ -9,7 +9,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"user_id", "crag_id"}))
+@Table(
+        uniqueConstraints = @UniqueConstraint(
+                columnNames = {"user_id", "crag_id"}
+        )
+)
 public class FavoriteCrag {
 
     @Id
@@ -17,8 +21,10 @@ public class FavoriteCrag {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToOne
+    @JoinColumn(name = "crag_id")
     private Crag crag;
 }
