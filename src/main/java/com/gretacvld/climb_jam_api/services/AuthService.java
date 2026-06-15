@@ -39,6 +39,12 @@ public class AuthService {
         if (userRepository.existsByUsername(dto.getUsername())) {
             throw new UsernameAlreadyUsedException("Le nom d'utilisateur est déjà utilisé !");
         }
+        // Checks if term accepted
+        if (dto.getTermsAccepted() == null || !dto.getTermsAccepted()) {
+            throw new IllegalArgumentException(
+                    "Vous devez accepter les conditions d'utilisation."
+            );
+        }
 
         // Registers new user
         User user = UserMapper.toEntity(dto, encoder);

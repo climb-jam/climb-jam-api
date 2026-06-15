@@ -45,7 +45,7 @@ public class CragService {
             System.out.println( "my logs : "+ "\u001B[34m " + isfavoris + " \u001B[0m");
             crag.setIsFav(isfavoris);
         });
-        //TODO hydrater les crags
+
 
 
         return crags;

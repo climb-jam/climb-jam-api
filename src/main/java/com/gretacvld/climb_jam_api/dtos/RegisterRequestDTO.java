@@ -1,5 +1,6 @@
 package com.gretacvld.climb_jam_api.dtos;
 
+import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
@@ -27,4 +28,7 @@ public class RegisterRequestDTO {
 
     @NotBlank(message = "Le nom d'utilisateur ne peut pas être vide.")
     private String username;
+
+    @AssertTrue(message = "Vous devez accepter les conditions d'utilisation.")
+    private Boolean termsAccepted;
 }
