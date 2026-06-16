@@ -16,7 +16,6 @@ import java.util.Set;
 public class CragDTO {
 
     private Long id;
-    private Boolean isFav;
     @NotBlank(message = "Le nom est obligatoire.")
     private String name;
 

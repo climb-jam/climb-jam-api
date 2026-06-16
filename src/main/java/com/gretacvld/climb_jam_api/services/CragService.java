@@ -35,21 +35,7 @@ public class CragService {
         return CragMapper.toDTO(cragRepository.save(crag));
     }
 
-    public List<CragDTO> getCragWithFav() {
 
-        List<CragDTO> crags = getAllCrags();
-        User user = utils.getCurrentUser();
-        List<FavoriteCrag> favorisCrags = favoriteCragRepository.findByUserId(user.getId());
-        crags.forEach(crag -> {
-            Boolean isfavoris = favorisCrags.stream().anyMatch(favoriteCrag -> Objects.equals(favoriteCrag.getCrag().getId(), crag.getId()));
-            System.out.println( "my logs : "+ "\u001B[34m " + isfavoris + " \u001B[0m");
-            crag.setIsFav(isfavoris);
-        });
-
-
-
-        return crags;
-    }
 
     public Optional<CragDTO> getCragById(Long id) {
         return cragRepository.findById(id)

@@ -1,6 +1,8 @@
 package com.gretacvld.climb_jam_api.controllers;
 
 import com.gretacvld.climb_jam_api.dtos.CragDTO;
+import com.gretacvld.climb_jam_api.mappers.CragMapper;
+import com.gretacvld.climb_jam_api.repositories.CragRepository;
 import com.gretacvld.climb_jam_api.services.CragService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,9 @@ public class CragController {
     @Autowired
     private CragService cragService;
 
+    @Autowired
+    private CragRepository cragRepository;
+
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<CragDTO> createCrag(@Valid @RequestBody CragDTO dto) {
@@ -30,8 +35,11 @@ public class CragController {
     }
 
     @GetMapping
-    public ResponseEntity<List<CragDTO>> getAllCrags() {
-        return ResponseEntity.ok(cragService.getCragWithFav());
+    public List<CragDTO> getAllCrags() {
+        return cragRepository.findAll()
+                .stream()
+                .map(CragMapper::toDTO)
+                .toList();
     }
 
     @GetMapping("/search/gps") // ex: /search/gps?lat=48.678913&lon=2.152492
