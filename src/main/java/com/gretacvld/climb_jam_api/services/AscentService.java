@@ -75,13 +75,13 @@ public class AscentService {
                 .orElseThrow(() -> new RouteNotFoundException("Voie introuvable"));
 
         Session session = sessionRepository.findByDateAndUserId(dto.getDate(), user.getId());
-        if (session == null){
-                    Session newSession = new Session();
-                    newSession.setUser(user);
-                    newSession.setCrag(route.getCrag());
-                    newSession.setDate(dto.getDate());
-                   session = sessionRepository.save(newSession);
-                        }
+        if (session == null) {
+            Session newSession = new Session();
+            newSession.setUser(user);
+            newSession.setCrag(route.getCrag());
+            newSession.setDate(dto.getDate());
+            session = sessionRepository.save(newSession);
+        }
         Ascent ascent = AscentMapper.toEntity(dto);
         ascent.setUser(user);
         ascent.setRoute(route);

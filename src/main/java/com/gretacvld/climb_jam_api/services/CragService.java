@@ -1,20 +1,19 @@
 package com.gretacvld.climb_jam_api.services;
 
 import com.gretacvld.climb_jam_api.dtos.CragDTO;
-import com.gretacvld.climb_jam_api.dtos.FavoriteCragDTO;
 import com.gretacvld.climb_jam_api.entities.Crag;
-import com.gretacvld.climb_jam_api.entities.FavoriteCrag;
-import com.gretacvld.climb_jam_api.entities.User;
 import com.gretacvld.climb_jam_api.exceptions.CragNotFoundException;
 import com.gretacvld.climb_jam_api.helpers.Utils;
 import com.gretacvld.climb_jam_api.mappers.CragMapper;
 import com.gretacvld.climb_jam_api.repositories.CragRepository;
 import com.gretacvld.climb_jam_api.repositories.FavoriteCragRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -35,6 +34,17 @@ public class CragService {
         return CragMapper.toDTO(cragRepository.save(crag));
     }
 
+    public Page<CragDTO> searchCrags(
+            String name,
+            int page,
+            int size
+    ) {
+        Pageable pageable = PageRequest.of(page, size);
+
+        return cragRepository
+                .findByNameContainingIgnoreCase(name, pageable)
+                .map(CragMapper::toDTO);
+    }
 
 
     public Optional<CragDTO> getCragById(Long id) {
@@ -53,18 +63,12 @@ public class CragService {
                 .map(CragMapper::toDTO);
     }
 
-    public List<CragDTO> getCragsByName(String name) {
-        return cragRepository.findByNameContainingIgnoreCase(name).stream()
-                .map(CragMapper::toDTO)
-                .collect(Collectors.toList());
-    }
 
     public List<CragDTO> getCragsByCityOrPostalCode(String city, String postalCode) {
         return cragRepository.findByCityContainingIgnoreCaseOrPostalCodeContainingIgnoreCase(city, postalCode).stream()
                 .map(CragMapper::toDTO)
                 .collect(Collectors.toList());
     }
-
 
 
     public CragDTO update(Long id, CragDTO dto) {

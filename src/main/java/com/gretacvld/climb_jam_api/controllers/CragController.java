@@ -5,6 +5,9 @@ import com.gretacvld.climb_jam_api.mappers.CragMapper;
 import com.gretacvld.climb_jam_api.repositories.CragRepository;
 import com.gretacvld.climb_jam_api.services.CragService;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -47,14 +50,25 @@ public class CragController {
         return cragService.getCragByCoordinates(lat, lon).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping(value = "/search", params = "name")
-    public ResponseEntity<List<CragDTO>> getCragsByName(@RequestParam String name) {
-        return ResponseEntity.ok(cragService.getCragsByName(name));
+    @GetMapping("/search")
+    public ResponseEntity<Page<CragDTO>> searchCrags(
+            @RequestParam String name,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
+        return ResponseEntity.ok(
+                cragService.searchCrags(name, page, size)
+        );
     }
 
-    @GetMapping("/search") // Different ways to call endpoint - ex : /search?city=saf OR /search?postalCode=21 OR /search?city=saf&postalCode=21
-    public ResponseEntity<List<CragDTO>> getCragsByCityOrPostalCode(@RequestParam(required = false) String city, @RequestParam(required = false) String postalCode) {
-        return ResponseEntity.ok(cragService.getCragsByCityOrPostalCode(city, postalCode));
+    @GetMapping("/search/location")
+    public ResponseEntity<List<CragDTO>> getCragsByCityOrPostalCode(
+            @RequestParam(required = false) String city,
+            @RequestParam(required = false) String postalCode
+    ) {
+        return ResponseEntity.ok(
+                cragService.getCragsByCityOrPostalCode(city, postalCode)
+        );
     }
 
     @PreAuthorize("hasRole('ADMIN')")
